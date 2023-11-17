@@ -10,7 +10,7 @@ import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
 
 interface CollectionByHandleData {
-  collectionByHandle: {
+  collection: {
     products: Products;
   };
 }
@@ -69,8 +69,6 @@ export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
       variables: { collectionHandle: handle },
     });
 
-  console.log(productsData);
-
   useEffect(() => {
     document.title = `Theos · Shop items`;
   }, []);
@@ -79,9 +77,7 @@ export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
     return <></>;
   }
 
-  return (
-    <ShopProducts products={productsData.collectionByHandle.products.nodes} />
-  );
+  return <ShopProducts products={productsData.collection.products.nodes} />;
 };
 
 export default ShopPage;

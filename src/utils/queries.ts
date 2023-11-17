@@ -2,8 +2,8 @@ import { gql } from "@apollo/client";
 
 export const GET_COLLECTION = gql`
   query GetCollection($collectionHandle: String!) {
-    collectionByHandle(handle: $collectionHandle) {
-      products(first: 50, sortKey: COLLECTION_DEFAULT) {
+    collection(handle: $collectionHandle) {
+      products(first: 50) {
         nodes {
           handle
           title
@@ -24,11 +24,7 @@ export const GET_COLLECTION = gql`
 
 export const GET_ALL_PRODUCTS = gql`
   query AllProducts {
-    products(
-      first: 50
-      query: "status:active AND published_status:published"
-      sortKey: CREATED_AT
-    ) {
+    products(first: 50, sortKey: CREATED_AT) {
       nodes {
         handle
         title
