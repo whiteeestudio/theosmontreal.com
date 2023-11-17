@@ -1,0 +1,88 @@
+{
+  "name": "theos-montreal",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.6.9",
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.14.17",
+    "@react-three/drei": "^9.88.11",
+    "babel-preset-react-app": "^10.0.1",
+    "classnames": "^2.3.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-functional": "^4.1.1",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "framer-motion": "^6.5.1",
+    "graphql": "^16.6.0",
+    "lazysizes": "^5.3.2",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.4",
+    "phosphor-react": "^1.4.1",
+    "prettier": "2.4.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-draggable": "^4.4.5",
+    "react-ga4": "^1.4.1",
+    "react-router-dom": "^6.3.0",
+    "react-scripts": "^5.0.0",
+    "recoil": "^0.7.2",
+    "sass": "^1.52.0",
+    "shopify-buy": "^2.16.1",
+    "stylelint": "^14.0.0",
+    "stylelint-actions-formatters": "^0.1.0",
+    "stylelint-config-prettier": "^9.0.3",
+    "stylelint-config-recommended-scss": "^5.0.0",
+    "stylelint-declaration-strict-value": "^1.7.12",
+    "three": "^0.149.0",
+    "typescript": "^4.5.4",
+    "web-vitals": "^2.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "build:production": "env-cmd --no-override -f .env-cmd.production react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "format": "eslint 'src/**/*.ts?(x)' --fix && pretty-quick --branch main",
+    "lint": "yarn lint:eslint && yarn lint:stylelint",
+    "lint:ci": "yarn lint:eslint:ci && yarn lint:stylelint",
+    "lint:eslint": "eslint 'src/**/*.ts?(x)'",
+    "lint:eslint:fix": "eslint 'src/**/*.ts?(x)' --fix",
+    "lint:eslint:ci": "eslint --output-file eslint_report.json --format json 'src/**/*.ts?(x)'",
+    "lint:stylelint": "stylelint 'src/**/*.?(s)css' --custom-formatter=node_modules/stylelint-actions-formatters",
+    "prettier:ci": "prettier --list-different \"**/*.{js,jsx,ts,tsx,scss,json}\"",
+    "prettier": "prettier --write \"**/*.{js,jsx,ts,tsx,scss,json}\" --list-different",
+    "prettier:bin": "prettier",
+    "sass": "^1.43.3"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0",
+    "@types/lodash": "^4.14.201",
+    "@types/node": "^16.11.19",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^18.2.15",
+    "@types/shopify-buy": "^2.10.10",
+    "@types/three": "^0.149.0"
+  }
+}

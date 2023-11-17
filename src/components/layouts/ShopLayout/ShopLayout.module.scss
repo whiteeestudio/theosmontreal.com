@@ -1,0 +1,39 @@
+.header {
+  display: flex;
+  box-sizing: border-box;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 25px;
+
+  @media only screen and (max-width: 900px) {
+    padding: 10px 20px;
+  }
+
+  .logo {
+    height: 50px;
+    margin: 0px;
+  }
+
+  .menu-container {
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+}
+
+.container {
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: calc(100vh - 155px);
+
+  @media only screen and (max-width: 900px) {
+    padding: 20px;
+    min-height: 100vh;
+  }
+}
+
+.link {
+  height: 50px;
+}

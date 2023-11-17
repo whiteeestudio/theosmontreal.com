@@ -1,0 +1,44 @@
+@use "utils/mixins/colors";
+
+.container {
+  input[type="radio"] {
+    display: none;
+  }
+
+  input[type="radio"]:checked + label,
+  input[type="radio"]:hover + label {
+    background-color: colors.$black;
+    color: colors.$white;
+  }
+
+  .option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    background-color: colors.$white;
+    border-radius: 50%;
+    padding: 20px;
+    cursor: pointer;
+    border: 4px solid colors.$black;
+    font-weight: 700;
+    font-size: 20px;
+
+    &--disabled {
+      color: colors.$dark-grey;
+      cursor: not-allowed;
+      border: 4px solid colors.$dark-grey;
+
+      &:hover {
+        background-color: colors.$white !important;
+        color: colors.$dark-grey !important;
+      }
+    }
+
+    &--error {
+      color: colors.$red;
+      border: 4px solid colors.$red;
+    }
+  }
+}

@@ -1,0 +1,136 @@
+.shared {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 30%;
+  max-width: 400px;
+  height: calc(100vh - 145px);
+  top: 125px;
+  background-color: white;
+
+  @media only screen and (max-width: 900px) {
+    width: 100%;
+    height: fit-content;
+    top: unset;
+  }
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+
+  @media only screen and (max-width: 900px) {
+    flex-wrap: wrap-reverse;
+    padding: 60px 0;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+
+    @media only screen and (max-width: 900px) {
+      flex-direction: row;
+    }
+
+    .title {
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 300;
+      margin: 0;
+    }
+
+    .price {
+      font-size: 14px;
+      font-weight: 400;
+      margin: 0;
+      text-wrap: nowrap;
+    }
+  }
+
+  .left-container {
+    padding: 0 24px;
+    @extend .shared;
+
+    @media only screen and (max-width: 900px) {
+      position: relative;
+      padding-bottom: 140px;
+    }
+
+    .description {
+      font-size: 12px;
+    }
+  }
+
+  .right-container {
+    align-items: flex-start;
+    gap: 16px;
+    padding: 0 24px;
+    @extend .shared;
+
+    @media only screen and (max-width: 900px) {
+      position: fixed;
+      bottom: 0;
+      padding: 24px;
+      max-width: unset;
+    }
+
+    .action-container {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      align-items: flex-start;
+      gap: 20px;
+
+      @media only screen and (max-width: 900px) {
+        flex-direction: row;
+      }
+    }
+
+    .button-container {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 14px;
+
+      & button {
+        width: 200px;
+        padding-left: 0;
+        padding-right: 0;
+      }
+
+      @media only screen and (max-width: 900px) {
+        & button {
+          width: 150px;
+        }
+      }
+
+      .added {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+    }
+  }
+
+  .images-container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    padding: 32px 0;
+    width: 40%;
+    gap: 16px;
+
+    @media only screen and (max-width: 900px) {
+      width: 100%;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+}

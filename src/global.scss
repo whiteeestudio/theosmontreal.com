@@ -1,0 +1,42 @@
+body,
+html {
+  font-family: "neue-haas-unica", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  width: 100vw;
+  margin: 0;
+}
+
+::-moz-selection {
+  color: white;
+  background: black;
+}
+
+::selection {
+  color: white;
+  background: black;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a:active {
+  text-decoration: none;
+}
+
+button {
+  font-family: "neue-haas-unica", sans-serif;
+}

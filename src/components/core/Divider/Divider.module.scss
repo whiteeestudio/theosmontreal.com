@@ -1,0 +1,7 @@
+@use "utils/mixins/colors";
+
+.divider {
+  width: 100%;
+  background-color: colors.$black;
+  height: 1px;
+}
