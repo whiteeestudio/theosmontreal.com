@@ -8,6 +8,10 @@ import classNames from "classnames";
 import { Suspense, useEffect } from "react";
 import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
+import { useWindowView } from "utils/view";
+import { SUB_ITEMS } from "components/layouts/ShopLayout";
+import Button from "components/core/Button";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface CollectionByHandleData {
   collection: {
@@ -23,27 +27,52 @@ interface ShopProductsProps {
   products: ShopProduct[];
 }
 
-const ShopProducts: React.FC<ShopProductsProps> = ({ products }) => (
-  <div className={styles["container"]}>
-    <div className={classNames(styles["products"])}>
-      {products.map((node) => (
-        <Suspense
-          fallback={
-            <h6 className="loading-text">Loading product, please wait...</h6>
-          }
-          key={node.handle}
+const MobileTabs = () => {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+
+  return (
+    <div className={classNames(styles["navigate-container"])}>
+      {SUB_ITEMS.map((category) => (
+        <Button
+          variant="tertiary"
+          className={classNames({
+            [styles["navigate-button--current"]]: pathname === category.to,
+          })}
+          onClick={() => navigate(category.to)}
         >
-          <Item
-            handle={node.handle}
-            src={node.featuredImage.url}
-            title={node.title}
-            price={formatPrice(node.priceRange)}
-          />
-        </Suspense>
+          {category.title}
+        </Button>
       ))}
     </div>
-  </div>
-);
+  );
+};
+
+const ShopProducts: React.FC<ShopProductsProps> = ({ products }) => {
+  const { isMobile, isTablet } = useWindowView();
+  return (
+    <div className={styles["container"]}>
+      {(isMobile || isTablet) && <MobileTabs />}
+      <div className={classNames(styles["products"])}>
+        {products.map((node) => (
+          <Suspense
+            fallback={
+              <h6 className="loading-text">Loading product, please wait...</h6>
+            }
+            key={node.handle}
+          >
+            <Item
+              handle={node.handle}
+              src={node.featuredImage.url}
+              title={node.title}
+              price={formatPrice(node.priceRange)}
+            />
+          </Suspense>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 const ShopPage: React.FC = () => {
   const { data: productsData, loading: isProductsLoading } =
@@ -77,7 +106,11 @@ export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
     return <></>;
   }
 
-  return <ShopProducts products={productsData.collection.products.nodes} />;
+  return (
+    <>
+      <ShopProducts products={productsData.collection.products.nodes} />
+    </>
+  );
 };
 
 export default ShopPage;

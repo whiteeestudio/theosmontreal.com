@@ -16,7 +16,7 @@ const MENU_RIGHT = [
   { title: "contact", to: "/contact" },
 ];
 
-const SUB_ITEMS = [
+export const SUB_ITEMS = [
   { title: "new arrivals", to: "/shop/new-arrivals" },
   { title: "shop all", to: "/shop/shop-all" },
   { title: "tops", to: "/shop/tops" },

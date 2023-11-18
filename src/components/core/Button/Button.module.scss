@@ -46,6 +46,14 @@
     padding: 0 5px;
   }
 
+  &--tertiary {
+    border: solid 1px black;
+    background: transparent;
+    font-size: 14px;
+    color: black;
+    padding: 4px 20px;
+  }
+
   &--link {
     background: none;
     border: none;
