@@ -30,8 +30,14 @@
   }
 
   .left-items {
+    .link {
+      display: flex;
+      align-items: center;
+      padding-top: 6px;
+      padding-right: 16px;
+    }
     .logo {
-      height: 50px;
+      width: 65px;
     }
 
     display: flex;

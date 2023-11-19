@@ -31,9 +31,9 @@ export const DesktopNavBar: React.FC<Props> = ({
     <>
       <div className={styles["header"]}>
         <div className={styles["left-items"]}>
-          <Link to={"/"}>
+          <Link className={styles["link"]} to={"/"}>
             <img
-              src={`${process.env.PUBLIC_URL}/images/theos-flag.png`}
+              src={`${process.env.PUBLIC_URL}/images/theos-logo-black.png`}
               alt={"logo"}
               className={classNames(styles["logo"], "lazyload", "lazyloaded")}
               data-sizes="auto"

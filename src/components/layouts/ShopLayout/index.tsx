@@ -6,13 +6,13 @@ import styles from "./ShopLayout.module.scss";
 import { Outlet } from "react-router-dom";
 import Footer from "components/custom/Footer";
 
-const MENU_LEFT = [
+export const MENU_LEFT = [
   { title: "shop", to: "/shop" },
   { title: "events", to: "/events" },
   { title: "looks", to: "/looks" },
 ];
 
-const MENU_RIGHT = [
+export const MENU_RIGHT = [
   { title: "about us", to: "/about-us" },
   { title: "contact", to: "/contact" },
 ];

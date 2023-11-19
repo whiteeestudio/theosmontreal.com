@@ -32,7 +32,7 @@ export const MobileNavBar: React.FC<Props> = ({ menuItems }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1 }}
-            src={`${process.env.PUBLIC_URL}/images/theos-flag.png`}
+            src={`${process.env.PUBLIC_URL}/images/theos-logo-black.png`}
             alt={"logo"}
             className={classNames(
               styles["menu-logo"],
