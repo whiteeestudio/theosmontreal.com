@@ -36,7 +36,7 @@ const Item: React.FC<Props> = ({ handle, title, price, src, className }) => {
           ${src}&width=800 800w`}
         />
         <div className={styles["info-container"]}>
-          <p>{title}</p>
+          <p className={styles["title"]}>{title}</p>
           <p className={styles["price"]}>{price}</p>
         </div>
       </motion.div>

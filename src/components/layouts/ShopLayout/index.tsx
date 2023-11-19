@@ -4,6 +4,7 @@ import { useWindowView } from "utils/view";
 
 import styles from "./ShopLayout.module.scss";
 import { Outlet } from "react-router-dom";
+import Footer from "components/custom/Footer";
 
 const MENU_LEFT = [
   { title: "shop", to: "/shop" },
@@ -41,7 +42,7 @@ const ShopLayout: React.FC = () => {
       <div className={styles["container"]}>
         <Outlet />
       </div>
-      {/* {!isMobile && <Footer isMobile={isMobile} />} */}
+      <Footer />
     </>
   );
 };

@@ -70,7 +70,7 @@ const ProductPage: React.FC = () => {
 
   useEffect(() => {
     if (productData) {
-      document.title = `Theos · ${productData.product.title}`;
+      document.title = `Club Theos · ${productData.product.title}`;
       if (productData?.product.variants.edges.length === 1) {
         setSelectedVariant(defaultValue);
       }
@@ -170,6 +170,7 @@ const ProductPage: React.FC = () => {
               details: (
                 <div className={styles["description"]}>
                   {productData?.product.sizeGuide?.value
+                    .trim()
                     .split("\n")
                     .map((text) => (
                       <>

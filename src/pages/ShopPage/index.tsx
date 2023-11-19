@@ -49,67 +49,87 @@ const MobileTabs = () => {
 };
 
 const ShopProducts: React.FC<ShopProductsProps> = ({ products }) => {
-  const { isMobile, isTablet } = useWindowView();
+  if (products.length === 0) {
+    return (
+      <div className={styles["no-products-container"]}>No products yet</div>
+    );
+  }
+
   return (
-    <div className={styles["container"]}>
-      {(isMobile || isTablet) && <MobileTabs />}
-      <div className={classNames(styles["products"])}>
-        {products.map((node) => (
-          <Suspense
-            fallback={
-              <h6 className="loading-text">Loading product, please wait...</h6>
-            }
-            key={node.handle}
-          >
-            <Item
-              handle={node.handle}
-              src={node.featuredImage.url}
-              title={node.title}
-              price={formatPrice(node.priceRange)}
-            />
-          </Suspense>
-        ))}
-      </div>
+    <div className={classNames(styles["products"])}>
+      {products.map((node) => (
+        <Suspense
+          fallback={
+            <h6 className="loading-text">Loading product, please wait...</h6>
+          }
+          key={node.handle}
+        >
+          <Item
+            handle={node.handle}
+            src={node.featuredImage.url}
+            title={node.title}
+            price={formatPrice(node.priceRange)}
+          />
+        </Suspense>
+      ))}
     </div>
   );
 };
 
 const ShopPage: React.FC = () => {
+  const { isMobile, isTablet } = useWindowView();
+
   const { data: productsData, loading: isProductsLoading } =
     useQuery<ProductsData>(GET_ALL_PRODUCTS);
 
   useEffect(() => {
-    document.title = `Theos · Shop all`;
+    document.title = `Club Theos · Shop all`;
   }, []);
 
   if (isProductsLoading || !productsData) {
-    return <></>;
+    return (
+      <div className={styles["container"]}>
+        {(isMobile || isTablet) && <MobileTabs />}
+      </div>
+    );
   }
 
   const orderedProducts = [...productsData.products.nodes];
   orderedProducts.reverse();
 
-  return <ShopProducts products={orderedProducts} />;
+  return (
+    <div className={styles["container"]}>
+      {(isMobile || isTablet) && <MobileTabs />}
+      <ShopProducts products={orderedProducts} />
+    </div>
+  );
 };
 
 export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
+  const { isMobile, isTablet } = useWindowView();
+
   const { data: productsData, loading: isProductsLoading } =
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
       variables: { collectionHandle: handle },
     });
 
   useEffect(() => {
-    document.title = `Theos · Shop items`;
+    document.title = `Club Theos · Shop`;
   }, []);
 
   if (isProductsLoading || !productsData) {
-    return <></>;
+    return (
+      <div className={styles["container"]}>
+        {(isMobile || isTablet) && <MobileTabs />}
+      </div>
+    );
   }
 
   return (
-    <>
+    <div className={styles["container"]}>
+      {(isMobile || isTablet) && <MobileTabs />}
       <ShopProducts products={productsData.collection.products.nodes} />
-    </>
+    </div>
   );
 };
 

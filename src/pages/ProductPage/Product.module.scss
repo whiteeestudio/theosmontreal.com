@@ -57,7 +57,7 @@
 
     @media only screen and (max-width: 900px) {
       position: relative;
-      padding-bottom: 140px;
+      padding-bottom: 100px;
     }
 
     .description {
@@ -122,8 +122,8 @@
     flex-direction: column;
     max-width: 600px;
     padding: 32px 0;
-    width: 40%;
-    gap: 16px;
+    width: 35%;
+    gap: 32px;
 
     @media only screen and (max-width: 900px) {
       width: 100%;
