@@ -84,3 +84,20 @@ export interface Policy {
     };
   };
 }
+
+export interface HomePageData {
+  banner: {
+    reference: {
+      image: {
+        url: string;
+      };
+    };
+  };
+  logo: {
+    reference: {
+      image: {
+        url: string;
+      };
+    };
+  };
+}

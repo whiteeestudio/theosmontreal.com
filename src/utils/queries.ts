@@ -1,5 +1,30 @@
 import { gql } from "@apollo/client";
 
+export const GET_HOME_PAGE = gql`
+  query GetHomePage {
+    metaobject(handle: { handle: "home-page", type: "homepage" }) {
+      banner: field(key: "banner") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+      logo: field(key: "logo") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_COLLECTION = gql`
   query GetCollection($collectionHandle: String!) {
     collection(handle: $collectionHandle) {
