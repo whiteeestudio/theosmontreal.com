@@ -155,7 +155,7 @@ const ProductPage: React.FC = () => {
         <Accordions
           accordions={[
             {
-              summary: "product details",
+              summary: "Product details",
               details: (
                 <div
                   className={styles["description"]}
@@ -166,7 +166,7 @@ const ProductPage: React.FC = () => {
               ),
             },
             {
-              summary: "size guide",
+              summary: "Size guide",
               details: (
                 <div className={styles["description"]}>
                   {productData?.product.sizeGuide?.value

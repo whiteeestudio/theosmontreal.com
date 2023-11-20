@@ -1,5 +1,6 @@
 import ShopLayout from "components/layouts/ShopLayout";
 import ComingSoonPage from "pages/ComingSoonPage";
+import PoliciesPage from "pages/PoliciesPage";
 import { ShopCategoryPage } from "pages/ShopPage";
 import React from "react";
 
@@ -30,6 +31,27 @@ const RootRouter = () => (
       />
       <Route path="/shop/shoes" element={<ShopCategoryPage handle="shoes" />} />
       <Route path="/product/:productHandle" element={<ProductPage />} />
+      <Route
+        path="/policies"
+        element={<Navigate to="/policies/shipping" replace />}
+      />
+      <Route
+        path="/policies/shipping"
+        element={<PoliciesPage policy="shipping" />}
+      />
+      <Route
+        path="/policies/returns-and-exchanges"
+        element={<PoliciesPage policy="returns-exchanges" />}
+      />
+      <Route
+        path="/policies/terms-and-conditions"
+        element={<PoliciesPage policy="terms-conditions" />}
+      />
+      <Route
+        path="/policies/privacy"
+        element={<PoliciesPage policy="privacy" />}
+      />
+
       <Route path="/cart" element={<CartPage />} />
       <Route path="/about-us" element={<ComingSoonPage />} />
       <Route path="/contact" element={<ComingSoonPage />} />

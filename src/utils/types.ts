@@ -47,3 +47,40 @@ export interface Product {
     value: string;
   } | null;
 }
+
+export interface PolicySection {
+  title: {
+    value: string;
+  };
+  body: {
+    value: string;
+  };
+}
+
+export interface PolicyQuestion {
+  question: {
+    value: string;
+  };
+  answer: {
+    value: string;
+  };
+}
+
+export interface Policy {
+  title: {
+    value: string;
+  };
+  description: {
+    value?: string;
+  };
+  sections?: {
+    references: {
+      nodes: PolicySection[];
+    };
+  };
+  questions?: {
+    references: {
+      nodes: PolicyQuestion[];
+    };
+  };
+}

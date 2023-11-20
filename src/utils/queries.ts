@@ -77,3 +77,44 @@ export const GET_PRODUCT = gql`
     }
   }
 `;
+
+export const GET_POLICY = gql`
+  query GetPolicy($policy: String!) {
+    metaobject(handle: { handle: $policy, type: "policy" }) {
+      title: field(key: "title") {
+        value
+      }
+      description: field(key: "description") {
+        value
+      }
+      sections: field(key: "sections") {
+        references(first: 50) {
+          nodes {
+            ... on Metaobject {
+              title: field(key: "section_title") {
+                value
+              }
+              body: field(key: "section_body") {
+                value
+              }
+            }
+          }
+        }
+      }
+      questions: field(key: "questions") {
+        references(first: 50) {
+          nodes {
+            ... on Metaobject {
+              question: field(key: "question") {
+                value
+              }
+              answer: field(key: "answer") {
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

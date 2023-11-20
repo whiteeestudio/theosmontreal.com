@@ -6,26 +6,26 @@ import styles from "./Desktop.module.scss";
 import { useRecoilValue } from "recoil";
 import cartState from "states/cartState";
 
-interface MenuItem {
+export interface MenuItem {
   title: string;
   to: string;
-  disabled?: boolean;
+  items?: MenuItem[];
+  hide?: boolean;
 }
 
 interface Props {
   leftItems: MenuItem[];
   rightItems: MenuItem[];
-  subItems: MenuItem[];
 }
 
-export const DesktopNavBar: React.FC<Props> = ({
-  leftItems,
-  rightItems,
-  subItems,
-}) => {
+export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const cartInfo = useRecoilValue(cartState);
+
+  const filteredLeftItems = leftItems.filter((item) => !item.hide);
+  const filteredRightItems = rightItems.filter((item) => !item.hide);
+  const current = leftItems.find((item) => pathname.includes(item.to));
 
   return (
     <>
@@ -39,12 +39,11 @@ export const DesktopNavBar: React.FC<Props> = ({
               data-sizes="auto"
             />
           </Link>
-          {leftItems.map((menuItem) => (
+          {filteredLeftItems.map((menuItem) => (
             <Button
               variant="secondary"
               onClick={() => navigate(menuItem.to)}
               key={menuItem.title}
-              disabled={menuItem.disabled}
             >
               <div
                 className={classNames(styles["menu-item"], {
@@ -59,12 +58,11 @@ export const DesktopNavBar: React.FC<Props> = ({
           ))}
         </div>
         <div className={styles["right-items"]}>
-          {rightItems.map((menuItem) => (
+          {filteredRightItems.map((menuItem) => (
             <Button
               variant="secondary"
               onClick={() => navigate(menuItem.to)}
               key={menuItem.title}
-              disabled={menuItem.disabled}
             >
               <div
                 className={classNames(styles["menu-item"], {
@@ -84,26 +82,27 @@ export const DesktopNavBar: React.FC<Props> = ({
           </Button>
         </div>
       </div>
-      <div className={styles["sub-header"]}>
-        <div className={styles["left-items"]}>
-          {subItems.map((menuItem) => (
-            <Button
-              variant="secondary"
-              onClick={() => navigate(menuItem.to)}
-              key={menuItem.title}
-              disabled={menuItem.disabled}
-            >
-              <div
-                className={classNames(styles["menu-item"], {
-                  [styles["menu-item--selected"]]: pathname === menuItem.to,
-                })}
+      {current?.items && (
+        <div className={styles["sub-header"]}>
+          <div className={styles["left-items"]}>
+            {current.items.map((menuItem) => (
+              <Button
+                variant="secondary"
+                onClick={() => navigate(menuItem.to)}
+                key={menuItem.title}
               >
-                {menuItem.title}
-              </div>
-            </Button>
-          ))}
+                <div
+                  className={classNames(styles["menu-item"], {
+                    [styles["menu-item--selected"]]: pathname === menuItem.to,
+                  })}
+                >
+                  {menuItem.title}
+                </div>
+              </Button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

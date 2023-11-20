@@ -8,12 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import styles from "./Mobile.module.scss";
 import { useRecoilValue } from "recoil";
 import cartState from "states/cartState";
-
-interface MenuItem {
-  title: string;
-  to: string;
-  disabled?: boolean;
-}
+import { MenuItem } from "../Desktop";
 
 interface Props {
   menuItems: MenuItem[];
@@ -79,7 +74,7 @@ export const MobileNavBar: React.FC<Props> = ({ menuItems }) => {
           </Link>
           {menuItems.map(
             (item) =>
-              !item.disabled && (
+              !item.hide && (
                 <Link
                   onClick={() => setIsMenuOpen(false)}
                   className={styles["drawer--link"]}

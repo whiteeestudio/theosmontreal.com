@@ -8,10 +8,6 @@ import classNames from "classnames";
 import { Suspense, useEffect } from "react";
 import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
-import { useWindowView } from "utils/view";
-import { SUB_ITEMS } from "components/layouts/ShopLayout";
-import Button from "components/core/Button";
-import { useLocation, useNavigate } from "react-router-dom";
 
 interface CollectionByHandleData {
   collection: {
@@ -26,27 +22,6 @@ interface ProductsData {
 interface ShopProductsProps {
   products: ShopProduct[];
 }
-
-const MobileTabs = () => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-
-  return (
-    <div className={classNames(styles["navigate-container"])}>
-      {SUB_ITEMS.map((category) => (
-        <Button
-          variant="tertiary"
-          className={classNames({
-            [styles["navigate-button--current"]]: pathname === category.to,
-          })}
-          onClick={() => navigate(category.to)}
-        >
-          {category.title}
-        </Button>
-      ))}
-    </div>
-  );
-};
 
 const ShopProducts: React.FC<ShopProductsProps> = ({ products }) => {
   if (products.length === 0) {
@@ -77,8 +52,6 @@ const ShopProducts: React.FC<ShopProductsProps> = ({ products }) => {
 };
 
 const ShopPage: React.FC = () => {
-  const { isMobile, isTablet } = useWindowView();
-
   const { data: productsData, loading: isProductsLoading } =
     useQuery<ProductsData>(GET_ALL_PRODUCTS);
 
@@ -87,11 +60,7 @@ const ShopPage: React.FC = () => {
   }, []);
 
   if (isProductsLoading || !productsData) {
-    return (
-      <div className={styles["container"]}>
-        {(isMobile || isTablet) && <MobileTabs />}
-      </div>
-    );
+    return <></>;
   }
 
   const orderedProducts = [...productsData.products.nodes];
@@ -99,15 +68,12 @@ const ShopPage: React.FC = () => {
 
   return (
     <div className={styles["container"]}>
-      {(isMobile || isTablet) && <MobileTabs />}
       <ShopProducts products={orderedProducts} />
     </div>
   );
 };
 
 export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
-  const { isMobile, isTablet } = useWindowView();
-
   const { data: productsData, loading: isProductsLoading } =
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
       variables: { collectionHandle: handle },
@@ -118,16 +84,11 @@ export const ShopCategoryPage: React.FC<{ handle: string }> = ({ handle }) => {
   }, []);
 
   if (isProductsLoading || !productsData) {
-    return (
-      <div className={styles["container"]}>
-        {(isMobile || isTablet) && <MobileTabs />}
-      </div>
-    );
+    return <></>;
   }
 
   return (
     <div className={styles["container"]}>
-      {(isMobile || isTablet) && <MobileTabs />}
       <ShopProducts products={productsData.collection.products.nodes} />
     </div>
   );
