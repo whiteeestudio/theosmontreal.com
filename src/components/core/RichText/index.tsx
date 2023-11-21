@@ -1,3 +1,5 @@
+import styles from "./RichText.module.scss";
+
 type ShopifyRichTextRoot = {
   type: "root";
   children: ShopifyRichTextTypes[];
@@ -49,7 +51,7 @@ type ShopifyRichTextTypes =
   | ShopifyRichTextList
   | ShopifyRichTextListItem;
 
-const ShopifyRichText = (
+export const RichText = (
   node: ShopifyRichTextTypes & {
     options: Array<{
       type: "bold" | "italic";
@@ -60,7 +62,7 @@ const ShopifyRichText = (
   const renderChildren = () => {
     if ("children" in node) {
       return node.children.map((child, index) => (
-        <ShopifyRichText key={index} {...child} options={node.options} />
+        <RichText key={index} {...child} options={node.options} />
       ));
     }
 
@@ -72,7 +74,7 @@ const ShopifyRichText = (
   }
 
   if (node.type === "paragraph") {
-    return <p>{renderChildren()}</p>;
+    return <p className={styles["paragraph"]}>{renderChildren()}</p>;
   }
 
   if (node.type === "list-item") {
@@ -88,7 +90,11 @@ const ShopifyRichText = (
   }
 
   if (node.type === "text") {
-    const nodeClassName = node.options
+    const options = node.options ?? [
+      { type: "bold", className: styles["bold"] },
+      { type: "italic", className: styles["italic"] },
+    ];
+    const nodeClassName = options
       .filter(({ type }) => node[type])
       .map(({ className }) => className)
       .join(" ");

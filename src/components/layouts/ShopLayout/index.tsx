@@ -73,7 +73,7 @@ const ShopLayout: React.FC = () => {
   return (
     <>
       {isTablet || isMobile ? (
-        <MobileNavBar menuItems={MENU_LEFT} />
+        <MobileNavBar menuItems={[...MENU_LEFT, ...MENU_RIGHT]} />
       ) : (
         <DesktopNavBar leftItems={MENU_LEFT} rightItems={MENU_RIGHT} />
       )}
