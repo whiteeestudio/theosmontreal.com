@@ -11,8 +11,8 @@ import cartState from "states/cartState";
 import checkoutState from "states/checkoutState";
 import shopifyApiState from "states/shopifyApiState";
 
-import { GET_PRODUCT } from "utils/queries";
-import { Product } from "utils/types";
+import { GET_FREE_SHIPPING, GET_PRODUCT } from "utils/queries";
+import { FreeShippingData, Product } from "utils/types";
 
 import "lazysizes";
 
@@ -48,6 +48,9 @@ const ProductPage: React.FC = () => {
   >(GET_PRODUCT, {
     variables: { handle: productHandle! },
   });
+
+  const { data: shippingData } =
+    useQuery<{ metaobject: FreeShippingData }>(GET_FREE_SHIPPING);
 
   const variants = useMemo(
     () =>
@@ -226,6 +229,7 @@ const ProductPage: React.FC = () => {
                 buttonText
               )}
             </Button>
+            <p>{shippingData?.metaobject.text.value}</p>
           </div>
         </div>
       </motion.div>

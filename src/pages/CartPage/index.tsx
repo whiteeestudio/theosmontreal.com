@@ -1,5 +1,5 @@
 import { Fragment, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { motion } from "framer-motion";
 import cartState from "states/cartState";
@@ -9,6 +9,9 @@ import styles from "./CartPage.module.scss";
 import Button from "components/core/Button";
 import shopifyApiState from "states/shopifyApiState";
 import { formatMoneyV2 } from "utils/money";
+import { GET_FREE_SHIPPING } from "utils/queries";
+import { useQuery } from "@apollo/client";
+import { FreeShippingData } from "utils/types";
 
 interface Props {
   item: ShopifyBuy.CheckoutLineItem;
@@ -33,7 +36,10 @@ const Item: React.FC<Props> = ({ item }) => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      <div className={styles["product-info"]}>
+      <Link
+        to={`/product/${item.variant?.product.handle}`}
+        className={styles["product-info"]}
+      >
         {item.variant?.image ? (
           <img
             src={item.variant?.image.src}
@@ -53,7 +59,7 @@ const Item: React.FC<Props> = ({ item }) => {
           <p>{item.title}</p>
           <p>{item.variant?.title}</p>
         </div>
-      </div>
+      </Link>
 
       <div className={styles["price"]}>
         <p>{formatMoneyV2(item.variant?.price)}</p>
@@ -70,6 +76,9 @@ const CartPage = () => {
   const { items } = useRecoilValue(cartState);
   const navigate = useNavigate();
 
+  const { data: shippingData } =
+    useQuery<{ metaobject: FreeShippingData }>(GET_FREE_SHIPPING);
+
   const goToCheckout = useCallback(() => {
     if (checkoutInfo.webUrl) {
       window.location.href = checkoutInfo.webUrl;
@@ -82,9 +91,23 @@ const CartPage = () => {
     .map((item) => new Array(item.quantity).fill(item))
     .flat();
 
+  if (items.length === 0) {
+    return (
+      <div className={styles["empty-container"]}>
+        <p>Your cart is empty.</p>
+        <Button
+          className={styles["button"]}
+          variant="primary"
+          onClick={() => navigate("/shop")}
+        >
+          continue shopping
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className={styles["container"]}>
-      <h1>Shopping cart</h1>
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -92,24 +115,16 @@ const CartPage = () => {
         className={styles["content-container"]}
       >
         <div className={styles["left-container"]}>
-          {items.length > 0 ? (
-            <>
-              <div className={styles["cart"]}>
-                {individualItems.map((item) => (
-                  <Fragment key={item.id}>
-                    <Item item={item} />
-                  </Fragment>
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <p>Your cart is empty.</p>
-            </>
-          )}
+          <div className={styles["cart"]}>
+            {individualItems.map((item) => (
+              <Fragment key={item.id}>
+                <Item item={item} />
+              </Fragment>
+            ))}
+          </div>
         </div>
         <div className={styles["right-container"]}>
-          {items.length > 0 ? (
+          <div className={styles["button-container"]}>
             <Button
               className={styles["button"]}
               variant="primary"
@@ -117,15 +132,8 @@ const CartPage = () => {
             >
               checkout
             </Button>
-          ) : (
-            <Button
-              className={styles["button"]}
-              variant="primary"
-              onClick={() => navigate("/shop")}
-            >
-              continue shopping
-            </Button>
-          )}
+            <p>{shippingData?.metaobject.text.value}</p>
+          </div>
         </div>
       </motion.div>
     </div>

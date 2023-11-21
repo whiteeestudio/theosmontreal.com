@@ -7,6 +7,7 @@ import { HomePageData } from "utils/types";
 import { GET_HOME_PAGE } from "utils/queries";
 import classNames from "classnames";
 import { useWindowView } from "utils/view";
+import "lazysizes";
 
 interface PolicyData {
   metaobject: HomePageData;

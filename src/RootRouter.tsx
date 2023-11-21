@@ -1,4 +1,5 @@
 import ShopLayout from "components/layouts/ShopLayout";
+import AboutPage from "pages/AboutPage";
 import ComingSoonPage from "pages/ComingSoonPage";
 import PoliciesPage from "pages/PoliciesPage";
 import { ShopCategoryPage } from "pages/ShopPage";
@@ -53,7 +54,7 @@ const RootRouter = () => (
       />
 
       <Route path="/cart" element={<CartPage />} />
-      <Route path="/about-us" element={<ComingSoonPage />} />
+      <Route path="/about-us" element={<AboutPage />} />
       <Route path="/contact" element={<ComingSoonPage />} />
       <Route path="/events" element={<ComingSoonPage />} />
       <Route path="/looks" element={<ComingSoonPage />} />

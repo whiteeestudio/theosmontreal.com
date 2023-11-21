@@ -152,3 +152,41 @@ export const GET_POLICY = gql`
     }
   }
 `;
+
+export const GET_FREE_SHIPPING = gql`
+  query GetFreeShipping {
+    metaobject(handle: { handle: "free-shipping", type: "free_shipping" }) {
+      text: field(key: "text") {
+        value
+      }
+    }
+  }
+`;
+
+export const GET_ABOUT_PAGE = gql`
+  query GetFreeShipping {
+    metaobject(handle: { handle: "about-data", type: "about_page" }) {
+      shopImage: field(key: "shop_image") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
+      shopHours: field(key: "shop_hours") {
+        value
+      }
+      shopAddress: field(key: "shop_address") {
+        value
+      }
+      shopPhoneNumber: field(key: "shop_phone_number") {
+        value
+      }
+      shopHolidayHours: field(key: "shop_holiday_hours") {
+        value
+      }
+    }
+  }
+`;

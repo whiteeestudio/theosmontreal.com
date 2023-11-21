@@ -108,3 +108,31 @@ export interface HomePageData {
     };
   };
 }
+
+export interface FreeShippingData {
+  text: {
+    value: string;
+  };
+}
+
+export interface AboutPageData {
+  shopImage: {
+    reference: {
+      image: {
+        url: string;
+      };
+    };
+  };
+  shopHours: {
+    value: string;
+  };
+  shopAddress: {
+    value: string;
+  };
+  shopPhoneNumber: {
+    value: string;
+  };
+  shopHolidayHours: {
+    value: string;
+  };
+}
