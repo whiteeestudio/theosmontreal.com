@@ -28,8 +28,6 @@ const PoliciesPage: React.FC<Props> = ({ policy }) => {
     return <></>;
   }
 
-  console.log(policyData);
-
   return (
     <div className={styles["container"]}>
       <h1>{policyData.metaobject.title.value.toLocaleUpperCase()}</h1>

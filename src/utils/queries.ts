@@ -12,6 +12,15 @@ export const GET_HOME_PAGE = gql`
           }
         }
       }
+      mobileBanner: field(key: "mobile_banner") {
+        reference {
+          ... on MediaImage {
+            image {
+              url
+            }
+          }
+        }
+      }
       logo: field(key: "logo") {
         reference {
           ... on MediaImage {

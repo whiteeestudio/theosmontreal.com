@@ -114,7 +114,6 @@ const ProductPage: React.FC = () => {
       return;
     }
 
-    console.log("here");
     const cart = await client.checkout.addLineItems(checkoutInfo.id, lineItems);
 
     if (cart) {

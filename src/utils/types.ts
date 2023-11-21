@@ -93,6 +93,13 @@ export interface HomePageData {
       };
     };
   };
+  mobileBanner: {
+    reference: {
+      image: {
+        url: string;
+      };
+    };
+  };
   logo: {
     reference: {
       image: {

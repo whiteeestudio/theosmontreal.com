@@ -1,5 +1,5 @@
 .container {
-  position: sticky;
+  position: fixed;
   display: flex;
   background-color: white;
   justify-content: space-between;
@@ -7,6 +7,7 @@
   width: 100%;
   padding: 0 16px;
   border-bottom: #ededed solid 1px;
+  overscroll-behavior: none;
 }
 
 .item {

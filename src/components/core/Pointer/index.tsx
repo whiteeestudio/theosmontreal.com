@@ -15,8 +15,6 @@ const Pointer: React.FC<Props> = ({ text, type, className }) => {
   const controls = useAnimation();
   const isInView = useInView(ref, { once: true });
 
-  console.log(type);
-
   useEffect(() => {
     if (isInView) {
       controls.start({ opacity: 1 });
@@ -44,7 +42,9 @@ const Pointer: React.FC<Props> = ({ text, type, className }) => {
           </div>
         </motion.div>
       ) : (
-        <motion.div className={classNames(styles["bottom-container"], className)}>
+        <motion.div
+          className={classNames(styles["bottom-container"], className)}
+        >
           <div className={styles["arrow"]}>
             <svg
               width="67"

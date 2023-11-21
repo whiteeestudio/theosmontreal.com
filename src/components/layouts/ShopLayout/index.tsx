@@ -42,7 +42,7 @@ export const MENU_RIGHT = [
 const MobileTabs = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const current = MENU_LEFT.find((item) => item.to === pathname);
+  const current = MENU_LEFT.find((item) => pathname.includes(item.to));
 
   if (!current?.items) {
     return <></>;
@@ -67,6 +67,8 @@ const MobileTabs = () => {
 
 const ShopLayout: React.FC = () => {
   const { isMobile, isTablet } = useWindowView();
+  const { pathname } = useLocation();
+  const current = MENU_LEFT.find((item) => pathname.includes(item.to));
 
   return (
     <>
@@ -75,7 +77,11 @@ const ShopLayout: React.FC = () => {
       ) : (
         <DesktopNavBar leftItems={MENU_LEFT} rightItems={MENU_RIGHT} />
       )}
-      <div className={styles["container"]}>
+      <div
+        className={classNames(styles["container"], {
+          [styles["container--no-sub"]]: !current,
+        })}
+      >
         {(isTablet || isMobile) && <MobileTabs />}
         <Outlet />
       </div>

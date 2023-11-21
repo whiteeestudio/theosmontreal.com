@@ -26,8 +26,6 @@ const Item: React.FC<Props> = ({ item }) => {
     setCartState({ items: cart.lineItems, total: cart.subtotalPrice });
   }, [checkoutInfo.id, client.checkout, item.id, item.quantity, setCartState]);
 
-  console.log(item);
-
   return (
     <motion.div
       className={styles["item-container"]}

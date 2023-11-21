@@ -5,6 +5,8 @@ import { useCallback } from "react";
 import { useQuery } from "@apollo/client";
 import { HomePageData } from "utils/types";
 import { GET_HOME_PAGE } from "utils/queries";
+import classNames from "classnames";
+import { useWindowView } from "utils/view";
 
 interface PolicyData {
   metaobject: HomePageData;
@@ -13,6 +15,7 @@ interface PolicyData {
 const HomePage: React.FC = () => {
   const controls = useAnimationControls();
   const navigate = useNavigate();
+  const { isMobile, isTablet } = useWindowView();
 
   const { data: homePageData, loading: isHomePageLoading } =
     useQuery<PolicyData>(GET_HOME_PAGE);
@@ -27,6 +30,8 @@ const HomePage: React.FC = () => {
   }
 
   const banner = homePageData?.metaobject.banner.reference.image.url;
+  const mobileBanner =
+    homePageData?.metaobject.mobileBanner.reference.image.url;
   const logo = homePageData?.metaobject.logo.reference.image.url;
 
   return (
@@ -46,12 +51,30 @@ const HomePage: React.FC = () => {
           className={styles["logo"]}
         />
       )}
-      {banner && (
-        <img
-          src={`${banner}&width=1024`}
-          alt={"home-banner"}
-          className={styles["banner"]}
-        />
+      {isMobile || isTablet ? (
+        <>
+          {mobileBanner && (
+            <img
+              src={`${mobileBanner}&width=100`}
+              alt={"home-banner"}
+              className={classNames(styles["banner"], "lazyload", "lazyloaded")}
+              data-sizes="auto"
+              data-srcset={`${mobileBanner}&width=1024 600w, ${mobileBanner}&width=2048 800w`}
+            />
+          )}
+        </>
+      ) : (
+        <>
+          {banner && (
+            <img
+              src={`${banner}&width=100`}
+              alt={"home-banner"}
+              className={classNames(styles["banner"], "lazyload", "lazyloaded")}
+              data-sizes="auto"
+              data-srcset={`${banner}&width=1024 600w, ${banner}&width=2048 800w`}
+            />
+          )}
+        </>
       )}
     </motion.div>
   );
