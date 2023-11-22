@@ -185,6 +185,11 @@ const ProductPage: React.FC = () => {
             },
           ]}
         />
+        {(isMobile || isTablet) && (
+          <p className={styles["free-shipping"]}>
+            {shippingData?.metaobject.text.value}
+          </p>
+        )}
       </motion.div>
       <motion.div
         className={styles["images-container"]}
@@ -229,7 +234,11 @@ const ProductPage: React.FC = () => {
                 buttonText
               )}
             </Button>
-            <p>{shippingData?.metaobject.text.value}</p>
+            {!(isMobile || isTablet) && (
+              <p className={styles["free-shipping"]}>
+                {shippingData?.metaobject.text.value}
+              </p>
+            )}
           </div>
         </div>
       </motion.div>
