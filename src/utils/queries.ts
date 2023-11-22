@@ -37,7 +37,7 @@ export const GET_HOME_PAGE = gql`
 export const GET_COLLECTION = gql`
   query GetCollection($collectionHandle: String!) {
     collection(handle: $collectionHandle) {
-      products(first: 50) {
+      products(first: 250) {
         nodes {
           handle
           title
@@ -58,7 +58,7 @@ export const GET_COLLECTION = gql`
 
 export const GET_ALL_PRODUCTS = gql`
   query AllProducts {
-    products(first: 50, sortKey: CREATED_AT) {
+    products(first: 250, sortKey: CREATED_AT) {
       nodes {
         handle
         title
