@@ -11,6 +11,7 @@ interface Props {
 const Blob: React.FC<Props> = ({ className }) => {
   return (
     <motion.a
+      whileHover={{ scale: 1.1 }}
       className={classNames(styles["dot-logo"], className)}
       href="https://whiteee.space"
       target="_blank"
