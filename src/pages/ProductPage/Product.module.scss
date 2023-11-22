@@ -45,6 +45,7 @@
         text-wrap: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
+        white-space: nowrap;
       }
     }
 
@@ -53,6 +54,7 @@
       font-weight: 400;
       margin: 0;
       text-wrap: nowrap;
+      white-space: nowrap;
     }
   }
 
@@ -81,6 +83,9 @@
       bottom: 0;
       padding: 24px;
       max-width: unset;
+      z-index: 10;
+      transform: translate3d(0, 0, 0);
+      transition: none !important;
     }
 
     .action-container {
