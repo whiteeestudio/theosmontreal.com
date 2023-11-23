@@ -11,6 +11,10 @@
 
   .image {
     width: 100%;
+
+    &--not-available {
+      opacity: 0.4;
+    }
   }
 
   .info-container {

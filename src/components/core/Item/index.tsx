@@ -12,10 +12,18 @@ interface Props {
   title: string;
   price: string;
   src: string;
+  availableForSale: boolean;
   className?: string;
 }
 
-const Item: React.FC<Props> = ({ handle, title, price, src, className }) => {
+const Item: React.FC<Props> = ({
+  handle,
+  title,
+  price,
+  src,
+  availableForSale,
+  className,
+}) => {
   const ref = useRef(null);
 
   return (
@@ -28,7 +36,9 @@ const Item: React.FC<Props> = ({ handle, title, price, src, className }) => {
           ref={ref}
           transition={{ duration: 1 }}
           src={`${src}&width=10`}
-          className={classNames(styles["image"], "lazyload", "lazyloaded")}
+          className={classNames(styles["image"], "lazyload", "lazyloaded", {
+            [styles["image--not-available"]]: !availableForSale,
+          })}
           alt="sage img"
           data-sizes="auto"
           data-srcset={`${src}&width=300 300w,
@@ -37,7 +47,9 @@ const Item: React.FC<Props> = ({ handle, title, price, src, className }) => {
         />
         <div className={styles["info-container"]}>
           <p className={styles["title"]}>{title}</p>
-          <p className={styles["price"]}>{price}</p>
+          <p className={styles["price"]}>
+            {availableForSale ? price : "SOLD OUT"}
+          </p>
         </div>
       </motion.div>
     </Link>

@@ -37,10 +37,11 @@ export const GET_HOME_PAGE = gql`
 export const GET_COLLECTION = gql`
   query GetCollection($collectionHandle: String!) {
     collection(handle: $collectionHandle) {
-      products(first: 250) {
+      products(first: 250, reverse: true) {
         nodes {
           handle
           title
+          availableForSale
           featuredImage {
             url
           }
@@ -49,26 +50,6 @@ export const GET_COLLECTION = gql`
               amount
               currencyCode
             }
-          }
-        }
-      }
-    }
-  }
-`;
-
-export const GET_ALL_PRODUCTS = gql`
-  query AllProducts {
-    products(first: 250, sortKey: CREATED_AT) {
-      nodes {
-        handle
-        title
-        featuredImage {
-          url
-        }
-        priceRange {
-          maxVariantPrice {
-            amount
-            currencyCode
           }
         }
       }

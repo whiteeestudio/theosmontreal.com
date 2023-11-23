@@ -1,11 +1,11 @@
-import ShopLayout from "components/layouts/ShopLayout";
-import AboutPage from "pages/AboutPage";
-import ComingSoonPage from "pages/ComingSoonPage";
-import PoliciesPage from "pages/PoliciesPage";
-import { ShopCategoryPage } from "pages/ShopPage";
 import React from "react";
 
 import { Navigate, Route, Routes } from "react-router-dom";
+
+const ShopLayout = React.lazy(() => import("components/layouts/ShopLayout"));
+const PoliciesPage = React.lazy(() => import("pages/PoliciesPage"));
+const ComingSoonPage = React.lazy(() => import("pages/ComingSoonPage"));
+const AboutPage = React.lazy(() => import("pages/AboutPage"));
 const HomePage = React.lazy(() => import("pages/HomePage"));
 const ShopPage = React.lazy(() => import("pages/ShopPage"));
 const ProductPage = React.lazy(() => import("pages/ProductPage"));
@@ -22,15 +22,12 @@ const RootRouter = () => (
       />
       <Route
         path="/shop/new-arrivals"
-        element={<ShopCategoryPage handle="new-arrivals" />}
+        element={<ShopPage handle="new-arrivals" />}
       />
-      <Route path="/shop/shop-all" element={<ShopPage />} />
-      <Route path="/shop/tops" element={<ShopCategoryPage handle="tops" />} />
-      <Route
-        path="/shop/bottoms"
-        element={<ShopCategoryPage handle="bottoms" />}
-      />
-      <Route path="/shop/shoes" element={<ShopCategoryPage handle="shoes" />} />
+      <Route path="/shop/shop-all" element={<ShopPage handle="shop-all" />} />
+      <Route path="/shop/tops" element={<ShopPage handle="tops" />} />
+      <Route path="/shop/bottoms" element={<ShopPage handle="bottoms" />} />
+      <Route path="/shop/shoes" element={<ShopPage handle="shoes" />} />
       <Route path="/product/:productHandle" element={<ProductPage />} />
       <Route
         path="/policies"

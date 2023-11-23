@@ -12,6 +12,7 @@ export type ShopProduct = {
     url: string;
   };
   priceRange: PriceRange;
+  availableForSale: boolean;
 };
 
 export interface Products {
