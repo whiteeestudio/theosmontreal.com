@@ -5,9 +5,12 @@ import { useQuery } from "@apollo/client";
 import { GET_COLLECTION } from "utils/queries";
 import { Products, ShopProduct } from "utils/types";
 import classNames from "classnames";
-import { Suspense, useEffect } from "react";
+import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
 import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
+import { useCollectionPagination } from "utils/hooks/use-collection-pagination";
+import { Pagination } from "@mui/material";
+import { useSearchParams } from "react-router-dom";
 
 interface CollectionByHandleData {
   collection: {
@@ -47,22 +50,68 @@ const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
 };
 
 export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
+  const { pages, isPagesFetched } = useCollectionPagination(handle);
+  const [after, setAfter] = useState<string | undefined>(undefined);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const currentPage = useMemo(() => searchParams.get("page"), [searchParams]);
+
   const { data: productsData, loading: isProductsLoading } =
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
-      variables: { collectionHandle: handle },
+      variables: {
+        collectionHandle: handle,
+        after,
+      },
     });
 
   useEffect(() => {
-    document.title = `Club Theos · Shop`;
+    document.title = "Shop";
   }, []);
+
+  useEffect(() => {
+    if (isPagesFetched) {
+      const currentPageNum = Number(currentPage);
+
+      if (
+        Number.isNaN(currentPageNum) ||
+        currentPageNum === 1 ||
+        currentPageNum > pages.length
+      ) {
+        setSearchParams((params) => {
+          params.delete("page");
+          return params;
+        });
+      }
+      setAfter(pages[currentPageNum - 1]);
+    }
+  }, [currentPage, isPagesFetched, pages, searchParams, setSearchParams]);
+
+  const onPageChange = useCallback(
+    (_, value: number) => {
+      setSearchParams({ page: value.toLocaleString() });
+    },
+    [setSearchParams]
+  );
 
   if (isProductsLoading || !productsData) {
     return <></>;
   }
 
+  const products = productsData.collection.products.nodes;
   return (
     <div className={styles["container"]}>
-      <ShopProducts products={productsData.collection.products.nodes} />
+      <ShopProducts products={products} />
+      {!!products.length && pages.length > 1 && (
+        <Pagination
+          count={pages.length}
+          size="small"
+          defaultPage={1}
+          page={!currentPage ? 1 : Number(currentPage)}
+          onChange={onPageChange}
+          hidePrevButton={!currentPage}
+          hideNextButton={Number(currentPage) === pages.length}
+        />
+      )}
     </div>
   );
 };

@@ -35,9 +35,9 @@ export const GET_HOME_PAGE = gql`
 `;
 
 export const GET_COLLECTION = gql`
-  query GetCollection($collectionHandle: String!) {
+  query GetCollection($collectionHandle: String!, $after: String) {
     collection(handle: $collectionHandle) {
-      products(first: 250, reverse: true) {
+      products(first: 32, after: $after) {
         nodes {
           handle
           title
@@ -51,6 +51,21 @@ export const GET_COLLECTION = gql`
               currencyCode
             }
           }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_COLLECTION_PAGE_DATA = gql`
+  query GetCollectionPageData($collectionHandle: String!, $after: String) {
+    collection(handle: $collectionHandle) {
+      products(first: 32, after: $after) {
+        edges {
+          cursor
+        }
+        pageInfo {
+          hasNextPage
         }
       }
     }

@@ -6,7 +6,7 @@ import { useQuery } from "@apollo/client";
 import { HomePageData } from "utils/types";
 import { GET_HOME_PAGE } from "utils/queries";
 import classNames from "classnames";
-import { useWindowView } from "utils/view";
+import { useWindowView } from "utils/hooks/use-window-view";
 import "lazysizes";
 
 interface PolicyData {

@@ -19,7 +19,7 @@ import "lazysizes";
 import styles from "./Product.module.scss";
 import Accordions from "components/core/Accordion";
 import SingleSelect from "components/core/Select";
-import { useWindowView } from "utils/view";
+import { useWindowView } from "utils/hooks/use-window-view";
 import { formatPrice } from "utils/money";
 
 interface ProductData {

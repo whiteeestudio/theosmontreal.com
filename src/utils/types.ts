@@ -19,6 +19,13 @@ export interface Products {
   nodes: ShopProduct[];
 }
 
+export interface ShopPageData {
+  edges: { cursor: string }[];
+  pageInfo: {
+    hasNextPage: boolean;
+  };
+}
+
 export interface Product {
   title: string;
   description: string;

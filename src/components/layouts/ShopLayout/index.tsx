@@ -1,6 +1,6 @@
 import { DesktopNavBar } from "components/custom/Navbar/Desktop";
 import { MobileNavBar } from "components/custom/Navbar/Mobile";
-import { useWindowView } from "utils/view";
+import { useWindowView } from "utils/hooks/use-window-view";
 
 import styles from "./ShopLayout.module.scss";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
