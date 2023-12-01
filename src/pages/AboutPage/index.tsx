@@ -25,7 +25,7 @@ const AboutPage: React.FC = () => {
     <div className={styles["container"]}>
       <div className={styles["info-container"]}>
         <div className={styles["details-container"]}>
-          <h1>© CLUB THEOS MONTREAL</h1>
+          <h1>© CLUB THEOS</h1>
           <p>{shopAddress}</p>
           <p>{shopPhoneNumber}</p>
         </div>

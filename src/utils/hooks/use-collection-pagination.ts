@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { GET_COLLECTION_PAGE_DATA } from "utils/queries";
 import { ShopPageData } from "utils/types";
 
