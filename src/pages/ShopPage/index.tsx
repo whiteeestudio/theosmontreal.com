@@ -10,7 +10,7 @@ import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
 import { useCollectionPagination } from "utils/hooks/use-collection-pagination";
 import { Pagination } from "@mui/material";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 interface CollectionByHandleData {
   collection: {
@@ -38,7 +38,7 @@ const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
         >
           <Item
             handle={node.handle}
-            src={node.featuredImage.url}
+            src={node?.featuredImage?.url}
             title={node.title}
             price={formatPrice(node.priceRange)}
             availableForSale={node.availableForSale}
@@ -52,9 +52,13 @@ const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
 export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   const { pages, isPagesFetched } = useCollectionPagination(handle);
   const [after, setAfter] = useState<string | undefined>(undefined);
+  const navigate = useNavigate();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-  const currentPage = useMemo(() => searchParams.get("page"), [searchParams]);
+  const [searchParams] = useSearchParams();
+  const currentPage = useMemo(
+    () => searchParams.get("page") || "1",
+    [searchParams]
+  );
 
   const { data: productsData, loading: isProductsLoading } =
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
@@ -71,29 +75,25 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   useEffect(() => {
     if (isPagesFetched) {
       const currentPageNum = Number(currentPage);
-
       if (
         Number.isNaN(currentPageNum) ||
         currentPageNum === 1 ||
         currentPageNum > pages.length
       ) {
-        setSearchParams((params) => {
-          params.delete("page");
-          return params;
-        });
+        navigate(`/shop/${handle}`);
       }
       setAfter(pages[currentPageNum - 1]);
     }
-  }, [currentPage, isPagesFetched, pages, searchParams, setSearchParams]);
+  }, [currentPage, handle, isPagesFetched, navigate, pages]);
 
   const onPageChange = useCallback(
     (_, value: number) => {
-      setSearchParams({ page: value.toLocaleString() });
+      navigate(`/shop/${handle}${value === 1 ? "" : `?page=${value}`}`);
     },
-    [setSearchParams]
+    [handle, navigate]
   );
 
-  if (isProductsLoading || !productsData) {
+  if (!isPagesFetched || isProductsLoading || !productsData) {
     return <></>;
   }
 
@@ -105,7 +105,6 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
         <Pagination
           count={pages.length}
           size="small"
-          defaultPage={1}
           page={!currentPage ? 1 : Number(currentPage)}
           onChange={onPageChange}
           hidePrevButton={!currentPage}

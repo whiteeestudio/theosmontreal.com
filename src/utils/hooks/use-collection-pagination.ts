@@ -24,6 +24,7 @@ export const useCollectionPagination = (handle: string) => {
   useEffect(() => {
     setPages([undefined]);
     setAfter(undefined);
+    setIsFetched(false);
   }, [handle]);
 
   useEffect(() => {
@@ -34,6 +35,7 @@ export const useCollectionPagination = (handle: string) => {
         const endCursor = edges[edges.length - 1].cursor;
         setPages((curr) => [...curr, endCursor]);
         setAfter(endCursor);
+      } else {
         setIsFetched(true);
       }
     }
