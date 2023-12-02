@@ -1,8 +1,5 @@
 import "lazysizes";
 
-import styles from "./Shop.module.scss";
-import { useQuery } from "@apollo/client";
-import { GET_COLLECTION } from "utils/queries";
 import { Products, ShopProduct } from "utils/types";
 import classNames from "classnames";
 import { Suspense, useCallback, useEffect, useMemo } from "react";
@@ -11,7 +8,15 @@ import { formatPrice } from "utils/money";
 import { Pagination } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentCollectionState, shopPaginationState } from "states/shopState";
+import {
+  currentCollectionState,
+  currentPageState,
+  shopPaginationState,
+} from "states/shopState";
+
+import styles from "./Shop.module.scss";
+import { useQuery } from "@apollo/client";
+import { GET_COLLECTION } from "utils/queries";
 
 interface CollectionByHandleData {
   collection: {
@@ -24,41 +29,44 @@ interface ProductsProps {
 }
 
 const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
-  if (products.length === 0) {
+  if (!products || products?.length === 0) {
     return (
       <div className={styles["no-products-container"]}>No products yet.</div>
     );
   }
 
   return (
-    <div className={classNames(styles["products"])}>
-      {products.map((node) => (
-        <Suspense
-          fallback={<h6 className="loading-text">loading...</h6>}
-          key={node.handle}
-        >
-          <Item
-            handle={node.handle}
-            src={node?.featuredImage?.url}
-            title={node.title}
-            price={formatPrice(node.priceRange)}
-            availableForSale={node.availableForSale}
-          />
-        </Suspense>
-      ))}
-    </div>
+    <>
+      <div className={classNames(styles["products"])}>
+        {products.map((node) => (
+          <Suspense
+            fallback={<h6 className="loading-text">loading...</h6>}
+            key={node.handle}
+          >
+            <Item
+              handle={node.handle}
+              src={node?.featuredImage?.url}
+              title={node.title}
+              price={formatPrice(node.priceRange)}
+              availableForSale={node.availableForSale}
+            />
+          </Suspense>
+        ))}
+      </div>
+    </>
   );
 };
 
 export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   const { pages, isPagesFetched } = useRecoilValue(shopPaginationState);
   const setCurrentCollection = useSetRecoilState(currentCollectionState);
+  const setCurrentPage = useSetRecoilState(currentPageState);
 
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
   const currentPage = useMemo(
-    () => searchParams.get("page") || "1",
+    () => Number(searchParams.get("page") || "1"),
     [searchParams]
   );
 
@@ -66,9 +74,13 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
       variables: {
         collectionHandle: handle,
-        after: pages?.length && pages[Number(currentPage)],
+        after: currentPage === 1 ? undefined : pages[currentPage - 1],
       },
     });
+
+  useEffect(() => {
+    setCurrentPage(currentPage);
+  }, [currentPage, setCurrentPage]);
 
   useEffect(() => {
     document.title = `Shop · ${handle.split("-").join(" ")}`;
@@ -76,15 +88,15 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   }, [handle, setCurrentCollection]);
 
   useEffect(() => {
-    const currentPageNum = Number(currentPage);
-    if (currentPageNum === 1 || currentPageNum > pages.length) {
+    if (currentPage === 1 || currentPage > pages.length) {
       navigate(`/shop/${handle}`);
     }
-  }, [currentPage, handle, navigate, pages]);
+  }, [currentPage, handle, navigate, pages.length]);
 
   const onPageChange = useCallback(
     (_, value: number) => {
       navigate(`/shop/${handle}${value === 1 ? "" : `?page=${value}`}`);
+      window.scrollTo(0, 0);
     },
     [handle, navigate]
   );
@@ -93,7 +105,7 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
     return <></>;
   }
 
-  const products = productsData.collection.products.nodes;
+  const products = productsData?.collection.products.nodes;
 
   return (
     <div className={styles["container"]}>

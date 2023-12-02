@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Check } from "phosphor-react";
 
 import { Fragment, useEffect, useMemo, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import cartState from "states/cartState";
 import checkoutState from "states/checkoutState";
@@ -41,6 +41,11 @@ const ProductPage: React.FC = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [buttonText, setButtonText] = useState("add to cart");
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const { data: productData, loading: isProductLoading } = useQuery<
     ProductData,

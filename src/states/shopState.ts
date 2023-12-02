@@ -1,7 +1,7 @@
 import { client } from "apollo";
 import { atom, selector } from "recoil";
-import { GET_COLLECTION_PAGE_DATA } from "utils/queries";
-import { ShopPageData } from "utils/types";
+import { GET_COLLECTION, GET_COLLECTION_PAGE_DATA } from "utils/queries";
+import { Products, ShopPageData, ShopProduct } from "utils/types";
 
 interface CollectionPageData {
   collection: {
@@ -12,6 +12,11 @@ interface CollectionPageData {
 export const currentCollectionState = atom({
   key: "CurrentCollectionID",
   default: undefined as string | undefined,
+});
+
+export const currentPageState = atom({
+  key: "CurrentPage",
+  default: undefined as number | undefined,
 });
 
 export const shopPaginationState = selector({
