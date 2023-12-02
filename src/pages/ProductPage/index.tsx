@@ -4,7 +4,7 @@ import Button from "components/core/Button";
 import { motion } from "framer-motion";
 import { Check } from "phosphor-react";
 
-import { useEffect, useMemo, useState } from "react";
+import { Fragment, useEffect, useMemo, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import cartState from "states/cartState";
@@ -73,7 +73,7 @@ const ProductPage: React.FC = () => {
 
   useEffect(() => {
     if (productData) {
-      document.title = `Club Theos · ${productData.product.title}`;
+      document.title = productData.product.title;
       if (productData?.product.variants.edges.length === 1) {
         setSelectedVariant(defaultValue);
       }
@@ -174,11 +174,11 @@ const ProductPage: React.FC = () => {
                   {productData?.product.sizeGuide?.value
                     .trim()
                     .split("\n")
-                    .map((text) => (
-                      <>
+                    .map((text, id) => (
+                      <Fragment key={`text-${id}`}>
                         {text}
                         <br />
-                      </>
+                      </Fragment>
                     ))}
                 </div>
               ),

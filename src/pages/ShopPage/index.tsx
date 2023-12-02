@@ -5,12 +5,13 @@ import { useQuery } from "@apollo/client";
 import { GET_COLLECTION } from "utils/queries";
 import { Products, ShopProduct } from "utils/types";
 import classNames from "classnames";
-import { Suspense, useCallback, useEffect, useMemo, useState } from "react";
+import { Suspense, useCallback, useEffect, useMemo } from "react";
 import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
-import { useCollectionPagination } from "utils/hooks/use-collection-pagination";
 import { Pagination } from "@mui/material";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { currentCollectionState, shopPaginationState } from "states/shopState";
 
 interface CollectionByHandleData {
   collection: {
@@ -50,8 +51,9 @@ const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
 };
 
 export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
-  const { pages, isPagesFetched } = useCollectionPagination(handle);
-  const [after, setAfter] = useState<string | undefined>(undefined);
+  const { pages, isPagesFetched } = useRecoilValue(shopPaginationState);
+  const setCurrentCollection = useSetRecoilState(currentCollectionState);
+
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -64,27 +66,21 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
     useQuery<CollectionByHandleData>(GET_COLLECTION, {
       variables: {
         collectionHandle: handle,
-        after,
+        after: pages?.length && pages[Number(currentPage)],
       },
     });
 
   useEffect(() => {
-    document.title = "Shop";
-  }, []);
+    document.title = `Shop · ${handle.split("-").join(" ")}`;
+    setCurrentCollection(handle);
+  }, [handle, setCurrentCollection]);
 
   useEffect(() => {
-    if (isPagesFetched) {
-      const currentPageNum = Number(currentPage);
-      if (
-        Number.isNaN(currentPageNum) ||
-        currentPageNum === 1 ||
-        currentPageNum > pages.length
-      ) {
-        navigate(`/shop/${handle}`);
-      }
-      setAfter(pages[currentPageNum - 1]);
+    const currentPageNum = Number(currentPage);
+    if (currentPageNum === 1 || currentPageNum > pages.length) {
+      navigate(`/shop/${handle}`);
     }
-  }, [currentPage, handle, isPagesFetched, navigate, pages]);
+  }, [currentPage, handle, navigate, pages]);
 
   const onPageChange = useCallback(
     (_, value: number) => {
@@ -98,6 +94,7 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   }
 
   const products = productsData.collection.products.nodes;
+
   return (
     <div className={styles["container"]}>
       <ShopProducts products={products} />
@@ -105,9 +102,9 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
         <Pagination
           count={pages.length}
           size="small"
-          page={!currentPage ? 1 : Number(currentPage)}
+          page={Number(currentPage)}
           onChange={onPageChange}
-          hidePrevButton={!currentPage}
+          hidePrevButton={Number(currentPage) === 1}
           hideNextButton={Number(currentPage) === pages.length}
         />
       )}

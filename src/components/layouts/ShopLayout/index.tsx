@@ -52,6 +52,7 @@ const MobileTabs = () => {
     <div className={classNames(styles["navigate-container"])}>
       {current.items.map((category) => (
         <Button
+          key={category.title}
           variant="tertiary"
           className={classNames({
             [styles["navigate-button--current"]]: pathname === category.to,

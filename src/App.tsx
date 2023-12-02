@@ -1,6 +1,6 @@
 import LoadingPage from "pages/LoadingPage/loading";
 import { Suspense, useState } from "react";
-import { BrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 
 import "./global.scss";
@@ -18,9 +18,7 @@ const App: React.FC = () => {
         {isClosed ? (
           <ClosedPage setIsClosed={setIsClosed} />
         ) : (
-          <BrowserRouter>
-            <RootRouter />
-          </BrowserRouter>
+          <RouterProvider router={RootRouter} />
         )}
       </Suspense>
     </RecoilRoot>
