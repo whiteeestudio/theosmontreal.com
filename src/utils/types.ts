@@ -16,17 +16,30 @@ export type ShopProduct = {
 };
 
 export interface Products {
+  id: string;
   nodes: ShopProduct[];
 }
 
 export interface ShopPageData {
-  edges: { cursor: string }[];
+  edges: {
+    cursor: string;
+    node: {
+      handle: string;
+      title: string;
+      featuredImage: {
+        url: string;
+      };
+      priceRange: PriceRange;
+      availableForSale: boolean;
+    };
+  }[];
   pageInfo: {
     hasNextPage: boolean;
   };
 }
 
 export interface Product {
+  id: string;
   title: string;
   description: string;
   availableForSale: boolean;

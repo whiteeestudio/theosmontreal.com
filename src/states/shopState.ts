@@ -1,7 +1,7 @@
 import { client } from "apollo";
 import { atom, selector } from "recoil";
-import { GET_COLLECTION, GET_COLLECTION_PAGE_DATA } from "utils/queries";
-import { Products, ShopPageData, ShopProduct } from "utils/types";
+import { GET_COLLECTION_PAGE_DATA } from "utils/queries";
+import { ShopPageData } from "utils/types";
 
 interface CollectionPageData {
   collection: {
@@ -14,9 +14,9 @@ export const currentCollectionState = atom({
   default: undefined as string | undefined,
 });
 
-export const currentPageState = atom({
-  key: "CurrentPage",
-  default: undefined as number | undefined,
+export const scrollPosition = atom({
+  key: "ScrollPosition",
+  default: undefined as string | undefined,
 });
 
 export const shopPaginationState = selector({
@@ -44,11 +44,11 @@ export const shopPaginationState = selector({
 
       if (currentHasNextPage) {
         const endCursor: string = edges[edges.length - 1].cursor;
-        pages.push(endCursor);
         after = endCursor;
       } else {
         isFetched = true;
       }
+      pages.push(edges.map((edge) => edge.node));
       hasNextPage = currentHasNextPage;
     }
 

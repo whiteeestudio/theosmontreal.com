@@ -34,35 +34,27 @@ export const GET_HOME_PAGE = gql`
   }
 `;
 
-export const GET_COLLECTION = gql`
-  query GetCollection($collectionHandle: String!, $after: String) {
-    collection(handle: $collectionHandle) {
-      products(first: 32, after: $after) {
-        nodes {
-          handle
-          title
-          availableForSale
-          featuredImage {
-            url
-          }
-          priceRange {
-            maxVariantPrice {
-              amount
-              currencyCode
-            }
-          }
-        }
-      }
-    }
-  }
-`;
-
 export const GET_COLLECTION_PAGE_DATA = gql`
   query GetCollectionPageData($collectionHandle: String!, $after: String) {
     collection(handle: $collectionHandle) {
+      id
       products(first: 32, after: $after) {
         edges {
           cursor
+          node {
+            handle
+            title
+            availableForSale
+            featuredImage {
+              url
+            }
+            priceRange {
+              maxVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+          }
         }
         pageInfo {
           hasNextPage
@@ -75,6 +67,7 @@ export const GET_COLLECTION_PAGE_DATA = gql`
 export const GET_PRODUCT = gql`
   query FetchProduct($handle: String!) {
     product(handle: $handle) {
+      id
       title
       description
       availableForSale
