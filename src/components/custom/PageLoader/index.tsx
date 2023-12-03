@@ -1,7 +1,7 @@
-import styles from "./LoadingPage.module.scss";
 import Loader from "components/core/Loader";
+import styles from "./PageLoader.module.scss";
 
-const LoadingPage: React.FC = () => {
+const PageLoader: React.FC = () => {
   return (
     <div className={styles["container"]}>
       <Loader />
@@ -9,4 +9,4 @@ const LoadingPage: React.FC = () => {
   );
 };
 
-export default LoadingPage;
+export default PageLoader;

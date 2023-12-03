@@ -1,4 +1,3 @@
-/* eslint-disable no-restricted-globals */
 import "lazysizes";
 
 import { ShopProduct } from "utils/types";
@@ -8,8 +7,8 @@ import Item from "components/core/Item";
 import { formatPrice } from "utils/money";
 import { Pagination } from "@mui/material";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { currentCollectionState, shopPaginationState } from "states/shopState";
+import { useRecoilValue } from "recoil";
+import { shopPaginationState } from "states/shopState";
 
 import styles from "./Shop.module.scss";
 
@@ -44,10 +43,7 @@ const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
 };
 
 export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
-  const { pages, isPagesFetched } = useRecoilValue(shopPaginationState);
-  const currentCollection = useRecoilValue(currentCollectionState);
-  const setCurrentCollection = useSetRecoilState(currentCollectionState);
-
+  const { pages } = useRecoilValue(shopPaginationState(handle));
   const navigate = useNavigate();
 
   const [searchParams] = useSearchParams();
@@ -57,11 +53,8 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   );
 
   useEffect(() => {
-    document.title = `Shop · ${handle.split("-").join(" ")}`;
-    if (currentCollection !== handle) {
-      setCurrentCollection(handle);
-    }
-  }, [currentCollection, handle, setCurrentCollection]);
+    document.title = `theos shop · ${handle.split("-").join(" ")}`;
+  }, [handle]);
 
   const onPageChange = useCallback(
     (_, value: number) => {
@@ -70,10 +63,6 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
     },
     [handle, navigate]
   );
-
-  if (!isPagesFetched) {
-    return <></>;
-  }
 
   const products = pages?.[currentPage - 1] ?? [];
 

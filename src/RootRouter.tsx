@@ -1,4 +1,5 @@
-import React from "react";
+import PageLoader from "components/custom/PageLoader";
+import React, { Suspense } from "react";
 
 import {
   Navigate,
@@ -12,15 +13,28 @@ const PoliciesPage = React.lazy(() => import("pages/PoliciesPage"));
 const ComingSoonPage = React.lazy(() => import("pages/ComingSoonPage"));
 const AboutPage = React.lazy(() => import("pages/AboutPage"));
 const HomePage = React.lazy(() => import("pages/HomePage"));
+const SearchPage = React.lazy(() => import("pages/SearchPage"));
 const ShopPage = React.lazy(() => import("pages/ShopPage"));
 const ProductPage = React.lazy(() => import("pages/ProductPage"));
 const ErrorPage = React.lazy(() => import("pages/ErrorPage"));
 const CartPage = React.lazy(() => import("pages/CartPage"));
 
+interface Props {
+  element: JSX.Element;
+}
+
+const SuspensedElement: React.FC<Props> = ({ element }) => {
+  return <Suspense fallback={<PageLoader />}>{element}</Suspense>;
+};
+
 const RootRouter = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route path="/" element={<HomePage />} errorElement={ErrorPage} />
+      <Route
+        path="/"
+        element={<SuspensedElement element={<HomePage />} />}
+        errorElement={ErrorPage}
+      />
       <Route element={<ShopLayout />}>
         <Route
           path="/shop"
@@ -29,32 +43,41 @@ const RootRouter = createBrowserRouter(
         />
         <Route
           path="/shop/new-arrivals"
-          element={<ShopPage handle="new-arrivals" />}
+          element={
+            <SuspensedElement element={<ShopPage handle="new-arrivals" />} />
+          }
           errorElement={ErrorPage}
         />
         <Route
           path="/shop/shop-all"
-          element={<ShopPage handle="shop-all" />}
+          element={
+            <SuspensedElement element={<ShopPage handle="shop-all" />} />
+          }
           errorElement={ErrorPage}
         />
         <Route
           path="/shop/tops"
-          element={<ShopPage handle="tops" />}
+          element={<SuspensedElement element={<ShopPage handle="tops" />} />}
           errorElement={ErrorPage}
         />
         <Route
           path="/shop/bottoms"
-          element={<ShopPage handle="bottoms" />}
+          element={<SuspensedElement element={<ShopPage handle="bottoms" />} />}
           errorElement={ErrorPage}
         />
         <Route
           path="/shop/shoes"
-          element={<ShopPage handle="shoes" />}
+          element={<SuspensedElement element={<ShopPage handle="shoes" />} />}
+          errorElement={ErrorPage}
+        />
+        <Route
+          path="/shop/search"
+          element={<SearchPage />}
           errorElement={ErrorPage}
         />
         <Route
           path="/product/:productHandle"
-          element={<ProductPage />}
+          element={<SuspensedElement element={<ProductPage />} />}
           errorElement={ErrorPage}
         />
         <Route
@@ -64,29 +87,45 @@ const RootRouter = createBrowserRouter(
         />
         <Route
           path="/policies/shipping"
-          element={<PoliciesPage policy="shipping" />}
+          element={
+            <SuspensedElement element={<PoliciesPage policy="shipping" />} />
+          }
           errorElement={ErrorPage}
         />
         <Route
           path="/policies/returns-and-exchanges"
-          element={<PoliciesPage policy="returns-exchanges" />}
+          element={
+            <SuspensedElement
+              element={<PoliciesPage policy="returns-exchanges" />}
+            />
+          }
           errorElement={ErrorPage}
         />
         <Route
           path="/policies/terms-and-conditions"
-          element={<PoliciesPage policy="terms-conditions" />}
+          element={
+            <SuspensedElement
+              element={<PoliciesPage policy="terms-conditions" />}
+            />
+          }
           errorElement={ErrorPage}
         />
         <Route
           path="/policies/privacy"
-          element={<PoliciesPage policy="privacy" />}
+          element={
+            <SuspensedElement element={<PoliciesPage policy="privacy" />} />
+          }
           errorElement={ErrorPage}
         />
 
-        <Route path="/cart" element={<CartPage />} errorElement={ErrorPage} />
+        <Route
+          path="/cart"
+          element={<SuspensedElement element={<CartPage />} />}
+          errorElement={ErrorPage}
+        />
         <Route
           path="/about-us"
-          element={<AboutPage />}
+          element={<SuspensedElement element={<AboutPage />} />}
           errorElement={ErrorPage}
         />
         <Route

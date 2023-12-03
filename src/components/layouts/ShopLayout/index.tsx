@@ -19,6 +19,7 @@ export const MENU_LEFT = [
       { title: "bottoms", to: "/shop/bottoms" },
       { title: "shoes", to: "/shop/shoes" },
     ],
+    items_right: [{ title: "search", to: "/shop/search" }],
   },
   { title: "events", to: "/events", hide: true },
   { title: "looks", to: "/looks", hide: true },
