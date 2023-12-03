@@ -89,7 +89,9 @@ const ProductPage: React.FC = () => {
   }, [defaultValue, productData]);
 
   if (isProductLoading) {
-    return <></>;
+    return (
+      <div className={styles["container"]} style={{ minHeight: "100vh" }} />
+    );
   }
 
   const handleClick = async () => {

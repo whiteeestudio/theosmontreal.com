@@ -25,6 +25,7 @@ const RootRouter = createBrowserRouter(
         <Route
           path="/shop"
           element={<Navigate to="/shop/new-arrivals" replace />}
+          errorElement={ErrorPage}
         />
         <Route
           path="/shop/new-arrivals"
