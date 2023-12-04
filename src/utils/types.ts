@@ -23,19 +23,15 @@ export interface Products {
 export interface ShopPageData {
   edges: {
     cursor: string;
-    node: {
-      handle: string;
-      title: string;
-      featuredImage: {
-        url: string;
-      };
-      priceRange: PriceRange;
-      availableForSale: boolean;
-    };
+    node: ShopProduct;
   }[];
   pageInfo: {
     hasNextPage: boolean;
   };
+}
+
+export interface SearchResults {
+  nodes: ShopProduct[];
 }
 
 export interface Product {

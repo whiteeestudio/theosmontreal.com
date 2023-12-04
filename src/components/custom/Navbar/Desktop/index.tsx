@@ -1,10 +1,18 @@
 import classNames from "classnames";
 import Button from "components/core/Button";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import {
+  Link,
+  createSearchParams,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import styles from "./Desktop.module.scss";
-import { useRecoilValue } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import cartState from "states/cartState";
+import Search from "components/core/Search";
+import { useCallback, useEffect } from "react";
+import searchState from "states/navState";
 
 export interface MenuItem {
   title: string;
@@ -22,10 +30,30 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const cartInfo = useRecoilValue(cartState);
+  const isSearchOpen = useRecoilValue(searchState);
+  const setIsSearchOpen = useSetRecoilState(searchState);
 
   const filteredLeftItems = leftItems.filter((item) => !item.hide);
   const filteredRightItems = rightItems.filter((item) => !item.hide);
   const current = leftItems.find((item) => pathname.includes(item.to));
+
+  useEffect(() => {
+    if (!pathname.includes("shop/search")) {
+      setIsSearchOpen(false);
+    }
+  }, [pathname, setIsSearchOpen]);
+
+  const onSearch = useCallback(
+    (search: string) => {
+      navigate({
+        pathname: "/shop/search",
+        search: createSearchParams({
+          q: search,
+        }).toString(),
+      });
+    },
+    [navigate]
+  );
 
   return (
     <>
@@ -100,6 +128,13 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
                 </div>
               </Button>
             ))}
+          </div>
+          <div className={styles["right-items"]}>
+            <Search
+              onSearch={onSearch}
+              setShowInput={setIsSearchOpen}
+              showInput={isSearchOpen}
+            />
           </div>
         </div>
       )}

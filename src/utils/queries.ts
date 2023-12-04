@@ -64,6 +64,34 @@ export const GET_COLLECTION_PAGE_DATA = gql`
   }
 `;
 
+export const GET_SEARCH_RESULTS = gql`
+  query GetSearchResults($query: String!) {
+    search(
+      first: 32
+      query: $query
+      types: [PRODUCT]
+      unavailableProducts: LAST
+    ) {
+      nodes {
+        ... on Product {
+          handle
+          title
+          availableForSale
+          featuredImage {
+            url
+          }
+          priceRange {
+            maxVariantPrice {
+              amount
+              currencyCode
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const GET_PRODUCT = gql`
   query FetchProduct($handle: String!) {
     product(handle: $handle) {

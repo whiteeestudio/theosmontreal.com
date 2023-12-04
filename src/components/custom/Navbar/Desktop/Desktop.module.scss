@@ -74,6 +74,12 @@
     gap: 12px;
   }
 
+  .right-items {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .menu-item {
     color: #aaaaaa;
     @extend .item;

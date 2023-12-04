@@ -16,7 +16,7 @@ interface ProductsProps {
   products: ShopProduct[];
 }
 
-const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
+export const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
   if (!products || products?.length === 0) {
     return (
       <div className={styles["no-products-container"]}>No products yet.</div>

@@ -1,0 +1,31 @@
+.search-text {
+  color: #aaaaaa;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  &:hover {
+    color: black;
+  }
+
+  &--selected {
+    color: #505050;
+  }
+}
+
+.content {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  .search-input {
+    border: 1px solid black;
+    border-radius: 0px;
+    height: 24px;
+    width: 200px;
+    padding: 0 4px;
+
+    &:focus {
+      outline: 1px solid black;
+    }
+  }
+}

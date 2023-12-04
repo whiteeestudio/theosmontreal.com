@@ -3,10 +3,10 @@ import { MobileNavBar } from "components/custom/Navbar/Mobile";
 import { useWindowView } from "utils/hooks/use-window-view";
 
 import styles from "./ShopLayout.module.scss";
-import { Outlet, useLocation, useNavigate } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import Footer from "components/custom/Footer";
 import classNames from "classnames";
-import Button from "components/core/Button";
+import MobileTabs from "components/custom/MobileTabs";
 
 export const MENU_LEFT = [
   {
@@ -19,7 +19,6 @@ export const MENU_LEFT = [
       { title: "bottoms", to: "/shop/bottoms" },
       { title: "shoes", to: "/shop/shoes" },
     ],
-    items_right: [{ title: "search", to: "/shop/search" }],
   },
   { title: "events", to: "/events", hide: true },
   { title: "looks", to: "/looks", hide: true },
@@ -39,33 +38,6 @@ export const MENU_RIGHT = [
   { title: "about us", to: "/about-us" },
   { title: "contact", to: "/contact", hide: true },
 ];
-
-const MobileTabs = () => {
-  const navigate = useNavigate();
-  const { pathname } = useLocation();
-  const current = MENU_LEFT.find((item) => pathname.includes(item.to));
-
-  if (!current?.items) {
-    return <></>;
-  }
-
-  return (
-    <div className={classNames(styles["navigate-container"])}>
-      {current.items.map((category) => (
-        <Button
-          key={category.title}
-          variant="tertiary"
-          className={classNames({
-            [styles["navigate-button--current"]]: pathname === category.to,
-          })}
-          onClick={() => navigate(category.to)}
-        >
-          {category.title}
-        </Button>
-      ))}
-    </div>
-  );
-};
 
 const ShopLayout: React.FC = () => {
   const { isMobile, isTablet } = useWindowView();
