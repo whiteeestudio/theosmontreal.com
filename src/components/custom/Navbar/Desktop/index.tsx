@@ -134,6 +134,7 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
               onSearch={onSearch}
               setShowInput={setIsSearchOpen}
               showInput={isSearchOpen}
+              placeHolder="Search products..."
             />
           </div>
         </div>

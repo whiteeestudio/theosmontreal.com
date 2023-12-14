@@ -14,6 +14,7 @@ interface Props {
   showInput?: boolean;
   setShowInput?: (showInput: boolean) => void;
   onSearch: (search: string) => void;
+  placeHolder?: string;
   className?: string;
 }
 
@@ -23,6 +24,7 @@ const Search: React.FC<Props> = ({
   setShowInput,
   onSearch,
   isAlwaysOpen,
+  placeHolder,
   className,
 }) => {
   const { register, handleSubmit, reset } = useForm<FormValues>({
@@ -49,6 +51,7 @@ const Search: React.FC<Props> = ({
           className={styles["search-input"]}
           {...register("search")}
           autoFocus={autoFocus}
+          placeholder={placeHolder}
           autoComplete="off"
         />
         <Button type="submit" variant="secondary">

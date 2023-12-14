@@ -9,6 +9,7 @@ import { Pagination } from "@mui/material";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { shopPaginationState } from "states/shopState";
+import { Helmet } from "react-helmet";
 
 import styles from "./Shop.module.scss";
 
@@ -25,6 +26,13 @@ export const ShopProducts: React.FC<ProductsProps> = ({ products }) => {
 
   return (
     <>
+      <Helmet>
+        <script
+          async
+          type="text/javascript"
+          src="https://static.klaviyo.com/onsite/js/klaviyo.js?company_id=RwmzgQ"
+        ></script>
+      </Helmet>
       <div className={classNames(styles["products"])}>
         {products.map((node) => (
           <Link to={`/product/${node.handle}`} key={node.handle}>

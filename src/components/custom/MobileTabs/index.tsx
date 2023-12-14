@@ -40,14 +40,17 @@ const MobileTabs = () => {
 
   return (
     <div className={styles["container"]}>
-      <Search
-        onSearch={onSearch}
-        setShowInput={setIsSearchOpen}
-        showInput={isSearchOpen}
-        isAlwaysOpen
-        autoFocus={false}
-        className={styles["search-bar"]}
-      />
+      {pathname.includes("shop") && (
+        <Search
+          onSearch={onSearch}
+          setShowInput={setIsSearchOpen}
+          showInput={isSearchOpen}
+          isAlwaysOpen
+          autoFocus={false}
+          placeHolder="Search products..."
+          className={styles["search-bar"]}
+        />
+      )}
       <div className={classNames(styles["navigate-container"])}>
         {current.items.map((category) => (
           <Button
