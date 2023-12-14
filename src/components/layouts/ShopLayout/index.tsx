@@ -59,7 +59,9 @@ const ShopLayout: React.FC = () => {
         {(isTablet || isMobile) && <MobileTabs />}
         <Outlet />
       </div>
-      <Footer />
+      {(isMobile || isTablet) && pathname.includes("/product") ? undefined : (
+        <Footer />
+      )}
     </>
   );
 };
