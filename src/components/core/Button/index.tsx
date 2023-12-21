@@ -26,7 +26,7 @@ const Button: React.FC<Props & React.HTMLProps<HTMLButtonElement>> = ({
       styles["button"],
       styles[`button--${variant}`],
       { [styles["active"]]: active },
-      className
+      className,
     )}
     type={type}
     onClick={onClick}

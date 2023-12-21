@@ -1,17 +1,17 @@
+import { useQuery } from "@apollo/client";
+import Button from "components/core/Button";
+import { motion } from "framer-motion";
 import { Fragment, useCallback } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { motion } from "framer-motion";
 import cartState from "states/cartState";
 import checkoutState from "states/checkoutState";
-
-import styles from "./CartPage.module.scss";
-import Button from "components/core/Button";
 import shopifyApiState from "states/shopifyApiState";
 import { formatMoneyV2 } from "utils/money";
 import { GET_FREE_SHIPPING } from "utils/queries";
-import { useQuery } from "@apollo/client";
 import { FreeShippingData } from "utils/types";
+
+import styles from "./CartPage.module.scss";
 
 interface Props {
   item: ShopifyBuy.CheckoutLineItem;
@@ -76,8 +76,9 @@ const CartPage = () => {
   const { items } = useRecoilValue(cartState);
   const navigate = useNavigate();
 
-  const { data: shippingData } =
-    useQuery<{ metaobject: FreeShippingData }>(GET_FREE_SHIPPING);
+  const { data: shippingData } = useQuery<{ metaobject: FreeShippingData }>(
+    GET_FREE_SHIPPING,
+  );
 
   const goToCheckout = useCallback(() => {
     if (checkoutInfo.webUrl) {

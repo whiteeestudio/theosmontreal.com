@@ -57,7 +57,7 @@ export const RichText = (
       type: "bold" | "italic";
       className: string;
     }>;
-  }
+  },
 ) => {
   const renderChildren = () => {
     if ("children" in node) {

@@ -153,3 +153,34 @@ export interface AboutPageData {
     value: string;
   };
 }
+
+export interface TheosBubblesData {
+  title: {
+    value: string;
+  };
+  mainVideo: {
+    reference: {
+      previewImage: {
+        url: string;
+      };
+      sources: {
+        url: string;
+        mimeType: string;
+        width: number;
+        height: number;
+      }[];
+    };
+  };
+  story: {
+    value: string;
+  };
+  photoshootImages: {
+    references: {
+      nodes: {
+        image: {
+          url: string;
+        };
+      }[];
+    };
+  };
+}

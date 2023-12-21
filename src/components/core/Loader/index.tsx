@@ -1,6 +1,7 @@
-import { motion } from "framer-motion";
-import styles from "./Loader.module.scss";
 import classNames from "classnames";
+import { motion } from "framer-motion";
+
+import styles from "./Loader.module.scss";
 
 interface Props {
   className?: string;

@@ -1,7 +1,8 @@
-import TextInput from "components/core/TextInput";
-import styles from "./ClosedPage.module.scss";
 import Button from "components/core/Button";
+import TextInput from "components/core/TextInput";
 import { useCallback, useState } from "react";
+
+import styles from "./ClosedPage.module.scss";
 
 interface Props {
   setIsClosed: (isClosed: boolean) => void;
@@ -21,7 +22,7 @@ const ClosedPage: React.FC<Props> = ({ setIsClosed }) => {
 
       setIsInvalid(true);
     },
-    [password, setIsClosed]
+    [password, setIsClosed],
   );
 
   return (

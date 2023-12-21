@@ -16,7 +16,6 @@ interface Props {
 }
 
 const Item: React.FC<Props> = ({
-  handle,
   title,
   price,
   src,
@@ -37,7 +36,7 @@ const Item: React.FC<Props> = ({
         className={classNames(styles["image"], "lazyload", "lazyloaded", {
           [styles["image--not-available"]]: !availableForSale,
         })}
-        alt="sage img"
+        alt="theos img"
         data-sizes="auto"
         data-srcset={`${src}&width=300 300w,
           ${src}&width=600 600w,

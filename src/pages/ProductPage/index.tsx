@@ -1,26 +1,24 @@
 import { useQuery } from "@apollo/client";
 import classNames from "classnames";
+import Accordions from "components/core/Accordion";
 import Button from "components/core/Button";
+import SingleSelect from "components/core/Select";
 import { motion } from "framer-motion";
 import { Check } from "phosphor-react";
-
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import cartState from "states/cartState";
 import checkoutState from "states/checkoutState";
 import shopifyApiState from "states/shopifyApiState";
-
+import { useWindowView } from "utils/hooks/use-window-view";
+import { formatPrice } from "utils/money";
 import { GET_FREE_SHIPPING, GET_PRODUCT } from "utils/queries";
 import { FreeShippingData, Product } from "utils/types";
 
 import "lazysizes";
 
 import styles from "./Product.module.scss";
-import Accordions from "components/core/Accordion";
-import SingleSelect from "components/core/Select";
-import { useWindowView } from "utils/hooks/use-window-view";
-import { formatPrice } from "utils/money";
 
 interface ProductData {
   product: Product;
@@ -54,8 +52,9 @@ const ProductPage: React.FC = () => {
     variables: { handle: productHandle! },
   });
 
-  const { data: shippingData } =
-    useQuery<{ metaobject: FreeShippingData }>(GET_FREE_SHIPPING);
+  const { data: shippingData } = useQuery<{ metaobject: FreeShippingData }>(
+    GET_FREE_SHIPPING,
+  );
 
   const variants = useMemo(
     () =>
@@ -65,7 +64,7 @@ const ProductPage: React.FC = () => {
         disabled: !edge.node.quantityAvailable,
         quantityAvailable: edge.node.quantityAvailable,
       })),
-    [productData?.product.variants.edges]
+    [productData?.product.variants.edges],
   );
 
   const defaultValue = useMemo(
@@ -73,7 +72,7 @@ const ProductPage: React.FC = () => {
       variants?.filter((variant) => !variant.disabled).length === 1
         ? variants?.filter((variant) => !variant.disabled)[0].value
         : undefined,
-    [variants]
+    [variants],
   );
 
   useEffect(() => {
@@ -109,11 +108,11 @@ const ProductPage: React.FC = () => {
     ];
 
     const variantQuantity = variants?.find(
-      (variant) => variant.value === selectedVariant
+      (variant) => variant.value === selectedVariant,
     )?.quantityAvailable;
 
     const currentQuantity = cartInfo.items.find(
-      (item) => item.variant?.id === selectedVariant
+      (item) => item.variant?.id === selectedVariant,
     )?.quantity;
 
     if (
@@ -226,6 +225,7 @@ const ProductPage: React.FC = () => {
             value={selectedVariant ?? ""}
             setValue={setSelectedVariant}
             defaultValue={defaultValue}
+            placeholder="Select a size..."
           />
           <div className={styles["button-container"]}>
             <Button

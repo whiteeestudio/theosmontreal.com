@@ -4,10 +4,10 @@ import Button from "components/core/Button";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
-import styles from "./Mobile.module.scss";
 import { useRecoilValue } from "recoil";
 import cartState from "states/cartState";
+
+import styles from "./Mobile.module.scss";
 import { MenuItem } from "../Desktop";
 
 interface Props {
@@ -32,7 +32,7 @@ export const MobileNavBar: React.FC<Props> = ({ menuItems }) => {
             className={classNames(
               styles["menu-logo"],
               "lazyload",
-              "lazyloaded"
+              "lazyloaded",
             )}
           />
         </Link>
@@ -83,7 +83,7 @@ export const MobileNavBar: React.FC<Props> = ({ menuItems }) => {
                 >
                   <h2 className={styles["drawer--link--text"]}>{item.title}</h2>
                 </Link>
-              )
+              ),
           )}
         </div>
       </Drawer>

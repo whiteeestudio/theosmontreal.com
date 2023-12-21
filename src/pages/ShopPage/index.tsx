@@ -1,15 +1,15 @@
 import "lazysizes";
 
-import { ShopProduct } from "utils/types";
-import classNames from "classnames";
-import { useCallback, useEffect, useMemo } from "react";
-import Item from "components/core/Item";
-import { formatPrice } from "utils/money";
 import { Pagination } from "@mui/material";
+import classNames from "classnames";
+import Item from "components/core/Item";
+import { useCallback, useEffect, useMemo } from "react";
+import { Helmet } from "react-helmet";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { shopPaginationState } from "states/shopState";
-import { Helmet } from "react-helmet";
+import { formatPrice } from "utils/money";
+import { ShopProduct } from "utils/types";
 
 import styles from "./Shop.module.scss";
 
@@ -57,7 +57,7 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
   const [searchParams] = useSearchParams();
   const currentPage = useMemo(
     () => Number(searchParams.get("page") || "1"),
-    [searchParams]
+    [searchParams],
   );
 
   useEffect(() => {
@@ -69,7 +69,7 @@ export const ShopPage: React.FC<{ handle: string }> = ({ handle }) => {
       navigate(`/shop/${handle}${value === 1 ? "" : `?page=${value}`}`);
       window.scrollTo(0, 0);
     },
-    [handle, navigate]
+    [handle, navigate],
   );
 
   const products = pages?.[currentPage - 1] ?? [];

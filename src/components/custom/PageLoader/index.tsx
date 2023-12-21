@@ -1,4 +1,5 @@
 import Loader from "components/core/Loader";
+
 import styles from "./PageLoader.module.scss";
 
 const PageLoader: React.FC = () => {
