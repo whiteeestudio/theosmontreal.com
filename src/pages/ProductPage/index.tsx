@@ -94,11 +94,11 @@ const ProductPage: React.FC = () => {
   }
 
   const handleClick = async () => {
-    setIsLoading(true);
-
     if (!selectedVariant) {
       return;
     }
+
+    setIsLoading(true);
 
     const lineItems = [
       {
@@ -120,6 +120,7 @@ const ProductPage: React.FC = () => {
       (currentQuantity && variantQuantity <= currentQuantity)
     ) {
       setButtonText("none left");
+      setIsLoading(false);
       return;
     }
 
