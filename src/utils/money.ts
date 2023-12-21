@@ -1,4 +1,5 @@
 import { MoneyV2 } from "shopify-buy";
+
 import { PriceRange } from "./types";
 
 export const formatMoneyV2 = (money: MoneyV2 | undefined) => {

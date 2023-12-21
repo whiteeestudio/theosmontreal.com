@@ -11,9 +11,8 @@
     "@react-three/drei": "^9.88.11",
     "babel-preset-react-app": "^10.0.1",
     "classnames": "^2.3.1",
-    "eslint-config-prettier": "^8.3.0",
+    "eslint": "^8.56.0",
     "eslint-plugin-functional": "^4.1.1",
-    "eslint-plugin-import": "^2.25.3",
     "eslint-plugin-unused-imports": "^2.0.0",
     "framer-motion": "^6.5.1",
     "graphql": "^16.6.0",
@@ -21,10 +20,11 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "phosphor-react": "^1.4.1",
-    "prettier": "2.4.1",
+    "prettier": "^3.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-draggable": "^4.4.5",
+    "react-fast-marquee": "^1.6.2",
     "react-ga4": "^1.4.1",
     "react-helmet": "^6.1.0",
     "react-hook-form": "^7.48.2",
@@ -86,6 +86,9 @@
     "@types/react-dom": "^18.2.15",
     "@types/react-helmet": "^6.1.11",
     "@types/shopify-buy": "^2.10.10",
-    "@types/three": "^0.149.0"
+    "@types/three": "^0.149.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-prettier": "^5.1.0"
   }
 }

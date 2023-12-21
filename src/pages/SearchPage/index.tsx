@@ -1,10 +1,11 @@
+import { useQuery } from "@apollo/client";
+import { ShopProducts } from "pages/ShopPage";
 import { useEffect, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
-import styles from "./Search.module.scss";
-import { ShopProducts } from "pages/ShopPage";
-import { useQuery } from "@apollo/client";
-import { SearchResults } from "utils/types";
 import { GET_SEARCH_RESULTS } from "utils/queries";
+import { SearchResults } from "utils/types";
+
+import styles from "./Search.module.scss";
 
 interface SearchData {
   search: SearchResults;

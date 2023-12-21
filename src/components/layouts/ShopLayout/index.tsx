@@ -1,12 +1,12 @@
+import classNames from "classnames";
+import Footer from "components/custom/Footer";
+import MobileTabs from "components/custom/MobileTabs";
 import { DesktopNavBar } from "components/custom/Navbar/Desktop";
 import { MobileNavBar } from "components/custom/Navbar/Mobile";
+import { Outlet, useLocation } from "react-router-dom";
 import { useWindowView } from "utils/hooks/use-window-view";
 
 import styles from "./ShopLayout.module.scss";
-import { Outlet, useLocation } from "react-router-dom";
-import Footer from "components/custom/Footer";
-import classNames from "classnames";
-import MobileTabs from "components/custom/MobileTabs";
 
 export const MENU_LEFT = [
   {
@@ -19,6 +19,11 @@ export const MENU_LEFT = [
       { title: "bottoms", to: "/shop/bottoms" },
       { title: "shoes", to: "/shop/shoes" },
     ],
+  },
+  {
+    title: "theos merch",
+    to: "/merch",
+    items: [{ title: '"theos bubbles"', to: "/merch/theos-bubbles-tee" }],
   },
   { title: "events", to: "/events", hide: true },
   { title: "looks", to: "/looks", hide: true },
@@ -53,7 +58,7 @@ const ShopLayout: React.FC = () => {
       )}
       <div
         className={classNames(styles["container"], {
-          [styles["container--no-sub"]]: !current,
+          [styles["container--no-sub"]]: !current?.items,
         })}
       >
         {(isTablet || isMobile) && <MobileTabs />}

@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom";
-import { motion, useAnimationControls } from "framer-motion";
-import styles from "./HomePage.module.scss";
-import { useCallback } from "react";
 import { useQuery } from "@apollo/client";
-import { HomePageData } from "utils/types";
-import { GET_HOME_PAGE } from "utils/queries";
 import classNames from "classnames";
+import { motion, useAnimationControls } from "framer-motion";
+import { useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import { useWindowView } from "utils/hooks/use-window-view";
+import { GET_HOME_PAGE } from "utils/queries";
+import { HomePageData } from "utils/types";
+
+import styles from "./HomePage.module.scss";
 import "lazysizes";
 
 interface PolicyData {
@@ -23,7 +24,7 @@ const HomePage: React.FC = () => {
 
   const onClick = useCallback(async () => {
     await controls.start({ opacity: 0 });
-    navigate("/shop");
+    navigate("/merch");
   }, [controls, navigate]);
 
   if (!isHomePageLoading || !homePageData) {

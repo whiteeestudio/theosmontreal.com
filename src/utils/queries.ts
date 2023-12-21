@@ -207,3 +207,42 @@ export const GET_ABOUT_PAGE = gql`
     }
   }
 `;
+
+export const GET_THEOS_BUBBLES_PAGE = gql`
+  query GetTheosBubbles {
+    metaobject(handle: { handle: "theos-bubbles", type: "theos_bubbles" }) {
+      title: field(key: "title") {
+        value
+      }
+      mainVideo: field(key: "main_video") {
+        reference {
+          ... on Video {
+            previewImage {
+              url
+            }
+            sources {
+              url
+              mimeType
+              width
+              height
+            }
+          }
+        }
+      }
+      story: field(key: "story") {
+        value
+      }
+      photoshootImages: field(key: "photoshoot_images") {
+        references(first: 50) {
+          nodes {
+            ... on MediaImage {
+              image {
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;

@@ -1,8 +1,9 @@
+import classNames from "classnames";
+import { useCallback } from "react";
+import { useForm, SubmitHandler } from "react-hook-form";
+
 import styles from "./Search.module.scss";
 import Button from "../Button";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { useCallback } from "react";
-import classNames from "classnames";
 
 type FormValues = {
   search: string;

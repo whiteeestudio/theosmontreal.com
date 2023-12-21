@@ -1,18 +1,18 @@
 import classNames from "classnames";
 import Button from "components/core/Button";
+import Search from "components/core/Search";
+import { useCallback, useEffect } from "react";
 import {
   Link,
   createSearchParams,
   useLocation,
   useNavigate,
 } from "react-router-dom";
-
-import styles from "./Desktop.module.scss";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import cartState from "states/cartState";
-import Search from "components/core/Search";
-import { useCallback, useEffect } from "react";
 import searchState from "states/navState";
+
+import styles from "./Desktop.module.scss";
 
 export interface MenuItem {
   title: string;
@@ -52,7 +52,7 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
         }).toString(),
       });
     },
-    [navigate]
+    [navigate],
   );
 
   return (
@@ -76,7 +76,7 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
               <div
                 className={classNames(styles["menu-item"], {
                   [styles["menu-item--selected"]]: pathname.includes(
-                    menuItem.to
+                    menuItem.to,
                   ),
                 })}
               >
@@ -95,7 +95,7 @@ export const DesktopNavBar: React.FC<Props> = ({ leftItems, rightItems }) => {
               <div
                 className={classNames(styles["menu-item"], {
                   [styles["menu-item--selected"]]: pathname.includes(
-                    menuItem.to
+                    menuItem.to,
                   ),
                 })}
               >

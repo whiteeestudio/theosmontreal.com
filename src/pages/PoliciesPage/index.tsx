@@ -1,8 +1,9 @@
 import { useQuery } from "@apollo/client";
-import styles from "./PoliciesPage.module.scss";
-import { Policy } from "utils/types";
-import { GET_POLICY } from "utils/queries";
 import { MultilineText } from "components/core/MultilineText";
+import { GET_POLICY } from "utils/queries";
+import { Policy } from "utils/types";
+
+import styles from "./PoliciesPage.module.scss";
 
 interface PolicyData {
   metaobject: Policy;

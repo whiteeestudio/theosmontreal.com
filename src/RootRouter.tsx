@@ -1,6 +1,5 @@
 import PageLoader from "components/custom/PageLoader";
 import React, { Suspense } from "react";
-
 import {
   Navigate,
   Route,
@@ -18,6 +17,9 @@ const ShopPage = React.lazy(() => import("pages/ShopPage"));
 const ProductPage = React.lazy(() => import("pages/ProductPage"));
 const ErrorPage = React.lazy(() => import("pages/ErrorPage"));
 const CartPage = React.lazy(() => import("pages/CartPage"));
+const TheosBubblesPage = React.lazy(
+  () => import("pages/merch/TheosBubblesPage"),
+);
 
 interface Props {
   element: JSX.Element;
@@ -72,7 +74,17 @@ const RootRouter = createBrowserRouter(
         />
         <Route
           path="/shop/search"
-          element={<SearchPage />}
+          element={<SuspensedElement element={<SearchPage />} />}
+          errorElement={ErrorPage}
+        />
+        <Route
+          path="/merch"
+          element={<Navigate to="/merch/theos-bubbles-tee" replace />}
+          errorElement={ErrorPage}
+        />
+        <Route
+          path="/merch/theos-bubbles-tee"
+          element={<SuspensedElement element={<TheosBubblesPage />} />}
           errorElement={ErrorPage}
         />
         <Route
@@ -145,8 +157,8 @@ const RootRouter = createBrowserRouter(
         />
         <Route path="*" element={<ErrorPage />} />
       </Route>
-    </>
-  )
+    </>,
+  ),
 );
 
 export default RootRouter;

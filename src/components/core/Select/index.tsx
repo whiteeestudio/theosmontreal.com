@@ -1,13 +1,13 @@
-import MuiMenuItem, { MenuItemProps } from "@mui/material/MenuItem";
-import MuiSelect, {
-  SelectChangeEvent,
-  SelectProps,
-} from "@mui/material/Select";
 import {
   FormControl as MuiFormControl,
   FormControlProps,
   styled,
 } from "@mui/material";
+import MuiMenuItem, { MenuItemProps } from "@mui/material/MenuItem";
+import MuiSelect, {
+  SelectChangeEvent,
+  SelectProps,
+} from "@mui/material/Select";
 import { CaretDown } from "phosphor-react";
 
 const FormControl = styled((props: FormControlProps) => (
@@ -45,7 +45,7 @@ const MenuItem = styled((props: MenuItemProps) => <MuiMenuItem {...props} />)(
   () => ({
     fontFamily: "inherit",
     fontSize: "12px",
-  })
+  }),
 );
 
 export type Option = {
@@ -60,6 +60,7 @@ interface Props {
   setValue?: (value: string) => void;
   defaultValue?: string;
   disabled?: boolean;
+  placeholder?: string;
 }
 
 const SingleSelect: React.FC<Props> = ({
@@ -68,6 +69,7 @@ const SingleSelect: React.FC<Props> = ({
   setValue,
   defaultValue,
   disabled,
+  placeholder,
 }) => {
   const handleChange = (event: SelectChangeEvent) => {
     const {
@@ -83,6 +85,14 @@ const SingleSelect: React.FC<Props> = ({
         disabled={disabled}
         value={value}
         onChange={handleChange}
+        sx={{
+          "& .MuiSelect-select .notranslate::after": placeholder
+            ? {
+                content: `"${placeholder}"`,
+                opacity: 0.42,
+              }
+            : {},
+        }}
       >
         {options.map((option) => (
           <MenuItem

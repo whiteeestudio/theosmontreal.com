@@ -1,5 +1,6 @@
-import styles from "./LoadingPage.module.scss";
 import Loader from "components/core/Loader";
+
+import styles from "./LoadingPage.module.scss";
 
 const LoadingPage: React.FC = () => {
   return (

@@ -1,15 +1,17 @@
+import { useQuery } from "@apollo/client";
+import { RichText } from "components/core/RichText";
 import { motion } from "framer-motion";
+import { GET_ABOUT_PAGE } from "utils/queries";
+import { AboutPageData } from "utils/types";
 
 import styles from "./AboutPage.module.scss";
+
 import "lazysizes";
-import { AboutPageData } from "utils/types";
-import { useQuery } from "@apollo/client";
-import { GET_ABOUT_PAGE } from "utils/queries";
-import { RichText } from "components/core/RichText";
 
 const AboutPage: React.FC = () => {
-  const { data: aboutPageData, loading: isAboutPageLoading } =
-    useQuery<{ metaobject: AboutPageData }>(GET_ABOUT_PAGE);
+  const { data: aboutPageData, loading: isAboutPageLoading } = useQuery<{
+    metaobject: AboutPageData;
+  }>(GET_ABOUT_PAGE);
 
   if (!aboutPageData || isAboutPageLoading) {
     return <></>;

@@ -1,4 +1,5 @@
 import Blob from "components/core/Blob";
+
 import styles from "./Footer.module.scss";
 
 const Footer: React.FC = () => (

@@ -1,7 +1,7 @@
+import classNames from "classnames";
 import { motion } from "framer-motion";
 
 import styles from "./Blob.module.scss";
-import classNames from "classnames";
 import "lazysizes";
 
 interface Props {

@@ -62,7 +62,7 @@ const Tabs: React.FC<Props> = ({
   setLabelIndex,
   className,
 }) => {
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
     setLabelIndex?.(newValue);
   };
 

@@ -14,7 +14,7 @@ const checkoutState = atom({
       if (storedCheckoutInfo) {
         const parsedStoredCheckoutInfo = JSON.parse(storedCheckoutInfo);
         const storedCheckout = await client.checkout.fetch(
-          parsedStoredCheckoutInfo.id
+          parsedStoredCheckoutInfo.id,
         );
         const today = moment();
 
@@ -22,7 +22,7 @@ const checkoutState = atom({
           storedCheckout &&
           !storedCheckout.completedAt &&
           moment(storedCheckout.updatedAt).isSameOrAfter(
-            today.subtract(1, "weeks")
+            today.subtract(1, "weeks"),
           )
         ) {
           return parsedStoredCheckoutInfo;

@@ -1,12 +1,13 @@
-import styles from "./MobileTabs.module.scss";
-import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import classNames from "classnames";
 import Button from "components/core/Button";
 import Search from "components/core/Search";
+import { MENU_LEFT } from "components/layouts/ShopLayout";
+import { useCallback, useEffect } from "react";
+import { createSearchParams, useLocation, useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import searchState from "states/navState";
-import { useCallback, useEffect } from "react";
-import { MENU_LEFT } from "components/layouts/ShopLayout";
+
+import styles from "./MobileTabs.module.scss";
 
 const MobileTabs = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ const MobileTabs = () => {
         }).toString(),
       });
     },
-    [navigate]
+    [navigate],
   );
 
   if (!current?.items) {
