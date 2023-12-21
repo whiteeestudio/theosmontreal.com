@@ -34,7 +34,7 @@ const TheosBubblesPage: React.FC = () => {
 
   const photoshootData = pageData.metaobject.photoshootImages.references.nodes;
   const title = pageData.metaobject.title.value;
-  const productData = collectionData.collection.products.edges?.[0].node;
+  const productData = collectionData.collection.products.edges[0]?.node;
 
   return (
     <div className={styles["container"]}>
