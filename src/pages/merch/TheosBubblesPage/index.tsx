@@ -38,7 +38,7 @@ const TheosBubblesPage: React.FC = () => {
 
   return (
     <div className={styles["container"]}>
-      <Marquee pauseOnHover>
+      <Marquee speed={100}>
         {photoshootData.map((node) => (
           <div className={styles["image-container"]}>
             <img
