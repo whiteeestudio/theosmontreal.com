@@ -23,7 +23,7 @@ export const MENU_LEFT = [
   {
     title: "theos merch",
     to: "/merch",
-    items: [{ title: '"theos bubbles"', to: "/merch/theos-bubbles-tee" }],
+    items: [{ title: "Theos BubbleTees™", to: "/merch/theos-bubbles-tee" }],
   },
   { title: "events", to: "/events", hide: true },
   { title: "looks", to: "/looks", hide: true },
